@@ -184,15 +184,6 @@
 			"showSubtechniques": false
 		},
 		{
-			"techniqueID": "T1546",
-			"tactic": "privilege-escalation",
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [],
-			"showSubtechniques": true
-		},
-		{
 			"techniqueID": "T1564",
 			"tactic": "defense-evasion",
 			"color": "",
