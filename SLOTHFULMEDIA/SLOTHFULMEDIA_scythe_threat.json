@@ -13,35 +13,83 @@
             },
             "1": {
                 "module": "loader",
+                "module_to_load": "run",
+                "request": "--load run",
+                "type": "message"
+            },
+            "2": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c mkdir \"%AppData%\\Media\"",
+                "type": "message"
+            },
+            "3": {
+                "module": "loader",
+                "module_to_load": "file",
+                "request": "--load file",
+                "type": "message"
+            },
+            "4": {
+                "depends_on": "e96eccc9-6c98-4246-b809-1849684c7df2",
+                "module": "file",
+                "request": "--create --path \"%AppData%\\Media\\media.lnk\" --size 512 --random",
+                "type": "message"
+            },
+            "5": {
+                "depends_on": "e96eccc9-6c98-4246-b809-1849684c7df2",
+                "module": "file",
+                "request": "--create --path \"%AppData%\\Media\\mediaplayer.exe\" --size 512 --random",
+                "type": "message"
+            },
+            "6": {
+                "depends_on": "e96eccc9-6c98-4246-b809-1849684c7df2",
+                "module": "file",
+                "request": "--create --path \"%TEMP%\\wHPEO.exe\" --size 512 --random",
+                "type": "message"
+            },
+            "7": {
+                "depends_on": "e96eccc9-6c98-4246-b809-1849684c7df2",
+                "module": "file",
+                "request": "--create --path \"%USERPROFILE%\\Junk9\" --size 512 --random",
+                "type": "message"
+            },
+            "8": {
+                "module": "loader",
                 "module_to_load": "search",
                 "request": "--load search",
                 "type": "message"
             },
-            "2": {
+            "9": {
                 "depends_on": "046fad0b-04e5-440e-bd3f-da82195adae5",
                 "module": "search",
                 "request": "--directory %USERPROFILE% --filename \"Junk9\"",
                 "type": "message"
             },
-            "3": {
-                "module": "loader",
-                "module_to_load": "run",
-                "request": "--load run",
-                "type": "message"
-            },
-            "4": {
+            "10": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
-                "request": "cmd /c del $(2).response[\"filepaths\"][0]",
+                "request": "cmd /c del $(9).response[\"filepaths\"][0]",
                 "type": "message"
             },
-            "5": {
+            "11": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c del \"%TEMP%\\wHPEO.exe\"",
+                "type": "message"
+            },
+            "12": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c rmdir /Q /S \"%AppData%\\Media\"",
+                "type": "message"
+            },
+            "13": {
                 "module": "loader",
                 "module_to_load": "printscr",
                 "request": "--load printscr",
                 "type": "message"
             },
-            "6": {
+            "14": {
                 "depends_on": "4346510a-3dad-4302-8572-2bcdc8bc2e2c",
                 "module": "printscr",
                 "request": "--window Desktop",
@@ -53,13 +101,13 @@
                 ],
                 "type": "message"
             },
-            "7": {
+            "15": {
                 "module": "loader",
                 "module_to_load": "services",
                 "request": "--load services",
                 "type": "message"
             },
-            "8": {
+            "16": {
                 "depends_on": "b819526e-8a99-45b1-8aa0-d6578545cf2f",
                 "module": "services",
                 "request": "--all",
@@ -71,13 +119,13 @@
                 ],
                 "type": "message"
             },
-            "9": {
+            "17": {
                 "module": "loader",
                 "module_to_load": "sysinfo",
                 "request": "--load sysinfo",
                 "type": "message"
             },
-            "10": {
+            "18": {
                 "depends_on": "14ba9c44-45b7-4630-b252-ad578faaeba9",
                 "module": "sysinfo",
                 "request": "",
@@ -89,13 +137,13 @@
                 ],
                 "type": "message"
             },
-            "11": {
+            "19": {
                 "module": "loader",
                 "module_to_load": "processes",
                 "request": "--load processes",
                 "type": "message"
             },
-            "12": {
+            "20": {
                 "depends_on": "62dc619d-529a-441f-87e4-89778eee9587",
                 "module": "processes",
                 "request": "",
@@ -107,13 +155,13 @@
                 ],
                 "type": "message"
             },
-            "13": {
+            "21": {
                 "module": "loader",
                 "module_to_load": "enumwindows",
                 "request": "--load enumwindows",
                 "type": "message"
             },
-            "14": {
+            "22": {
                 "depends_on": "4a72f9fb-a63f-45fd-afa9-9e515e53225b",
                 "module": "enumwindows",
                 "request": "--class --pid --processname --tid --wid",
@@ -125,7 +173,7 @@
                 ],
                 "type": "message"
             },
-            "15": {
+            "23": {
                 "module": "controller",
                 "request": "--shutdown",
                 "rtags": [
