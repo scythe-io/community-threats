@@ -15,12 +15,18 @@
                 "module": "loader",
                 "module_to_load": "run",
                 "request": "--load run",
+                "rtags": [
+                    "att&ck-technique:T1071.001"
+                ],
                 "type": "message"
             },
             "2": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "cmd /c mkdir \"%AppData%\\Media\"",
+                "rtags": [
+                    "att&ck-technique:T1059.003"
+                ],
                 "type": "message"
             },
             "3": {
@@ -69,12 +75,16 @@
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "cmd /c del $(9).response[\"filepaths\"][0]",
+                "rtags": [
+                    "att&ck-technique:T1485"
+                ],
                 "type": "message"
             },
             "11": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "cmd /c del \"%TEMP%\\wHPEO.exe\"",
+                "rtags": [],
                 "type": "message"
             },
             "12": {
@@ -105,6 +115,9 @@
                 "module": "loader",
                 "module_to_load": "services",
                 "request": "--load services",
+                "rtags": [
+                    "att&ck-technique:T1569"
+                ],
                 "type": "message"
             },
             "16": {
