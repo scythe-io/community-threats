@@ -1,4 +1,4 @@
-# Largest, public Adversary Emulation Plan library
+# Adversary Emulation Plan Library
 This repository is for sharing adversary emulation plans in JSON format.
 Currently we support SCYTHE threats and MITRE ATT&CK Navigator both of which use JSON.
 
