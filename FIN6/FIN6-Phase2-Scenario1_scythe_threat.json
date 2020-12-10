@@ -1,0 +1,113 @@
+{
+    "threat": {
+        "category": "User-Defined",
+        "description": "FIN6 is a financially motivated cyber crime group known for stealing credit card data and performing ransomware attacks.",
+        "display_name": "FIN6-Phase2-Scenario1",
+        "name": "FIN6-Phase2-Scenario1",
+        "operating_system_name": "windows",
+        "script": {
+            "0": {
+                "conf": "--cp 127.0.0.1:443 --multipart 10240 --secure true",
+                "module": "https",
+                "type": "initialization"
+            },
+            "1": {
+                "module": "loader",
+                "module_to_load": "run",
+                "request": "--load run",
+                "type": "message"
+            },
+            "2": {
+                "module": "loader",
+                "module_to_load": "upsh",
+                "request": "--load upsh",
+                "type": "message"
+            },
+            "3": {
+                "module": "loader",
+                "module_to_load": "downloader",
+                "request": "--load downloader",
+                "type": "message"
+            },
+            "4": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "downloader",
+                "request": "--src \"https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe\" --dest \".\\p.exe\"",
+                "rtags": [
+                    "T1567.002"
+                ],
+                "type": "message"
+            },
+            "5": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c REG ADD HKEY_CURRENT_USER\\Software\\ExampleRegKey /v Example /d \"Example Data\" /f",
+                "rtags": [
+                    "T1547.001"
+                ],
+                "type": "message"
+            },
+            "6": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c REG QUERY HKEY_CURRENT_USER\\Software\\ExampleRegKey",
+                "rtags": [
+                    "T1547.001"
+                ],
+                "type": "message"
+            },
+            "7": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c SCHTASKS /CREATE /SC DAILY /TN \"MyTasks\\Example Task\" /TR \"%USERPROFILE%\\Desktop\\ryuk\\example_service.exe\" /ST 11:00 /F",
+                "rtags": [
+                    "T1053.005"
+                ],
+                "type": "message"
+            },
+            "8": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c SCHTASKS /QUERY /TN \"MyTasks\\Example Task\"",
+                "rtags": [
+                    "T1053.005"
+                ],
+                "type": "message"
+            },
+            "9": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c sc create \"Windows Help Assistant\" binpath=\"c:\\windows\\temp\\Assistant32.exe\" start=\"auto\" obj=\"LocalSystem\"",
+                "rtags": [
+                    "T1053.005"
+                ],
+                "type": "message"
+            },
+            "10": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "downloader",
+                "request": "--src \"VFS:/shared/FIN6/kill.bat\" --dest \"%USERPROFILE%/Desktop/FIN6/kill.bat\"",
+                "type": "message"
+            },
+            "11": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c REG DELETE HKEY_CURRENT_USER\\Software\\ExampleRegKey /f",
+                "type": "message"
+            },
+            "12": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c SCHTASKS /DELETE /TN \"MyTasks\\Example Task\" /F",
+                "type": "message"
+            },
+            "13": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c sc delete \"Windows Help Assistant\"",
+                "type": "message"
+            }
+        },
+        "signature": "3ce1cbeedb097e1a0c3b83ebdd6c955a7433cf29"
+    }
+}
