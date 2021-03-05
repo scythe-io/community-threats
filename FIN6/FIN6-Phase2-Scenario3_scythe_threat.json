@@ -2,8 +2,8 @@
     "threat": {
         "category": "User-Defined",
         "description": "FIN6 is a financially motivated cyber crime group known for stealing credit card data and performing ransomware attacks.",
-        "display_name": "FIN6-Phase2-Scenario1",
-        "name": "FIN6-Phase2-Scenario1",
+        "display_name": "FIN6-Phase2-Scenario3",
+        "name": "FIN6-Phase2-Scenario3",
         "operating_system_name": "windows",
         "script": {
             "0": {
