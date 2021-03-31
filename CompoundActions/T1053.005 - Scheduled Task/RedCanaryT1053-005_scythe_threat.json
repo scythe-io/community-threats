@@ -1,0 +1,91 @@
+{
+    "threat": {
+        "category": "User-Defined",
+        "description": "As presented by Red Canary in the 2021 Threat Detection Report",
+        "display_name": "RedCanaryT1053-005",
+        "name": "RedCanaryT1053-005",
+        "operating_system_name": "windows",
+        "script": {
+            "0": {
+                "conf": "--cp 127.0.0.1:443 --multipart 10240 --secure true",
+                "module": "https",
+                "type": "initialization"
+            },
+            "1": {
+                "module": "loader",
+                "module_to_load": "run",
+                "request": "--load run",
+                "rtags": [
+                    "att&ck-technique:T1071.001"
+                ],
+                "type": "message"
+            },
+            "2": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "schtasks /Create /F /SC MINUTE /MO 3 /ST 07:00 /TN CMDTestTask /TR \"cmd /c date /T > C:\\Windows\\Temp\\current_date.txt\"",
+                "rtags": [
+                    "att&ck-technique:T1053.005"
+                ],
+                "type": "message"
+            },
+            "3": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "schtasks /Query /TN CMDTestTask",
+                "rtags": [
+                    "att&ck-technique:T1053"
+                ],
+                "type": "message"
+            },
+            "4": {
+                "time": "300",
+                "type": "delay"
+            },
+            "5": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd.exe /c type \"C:\\Windows\\Temp\\current_date.txt\"",
+                "rtags": [
+                    "att&ck-technique:T1124"
+                ],
+                "type": "message"
+            },
+            "6": {
+                "name": "STEP",
+                "type": "assign",
+                "value": "CLEAN UP"
+            },
+            "7": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd.exe /c schtasks /delete /TN CMDTestTask /F",
+                "rtags": [
+                    "att&ck-technique:T1059.003"
+                ],
+                "type": "message"
+            },
+            "8": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "cmd.exe /c del \"C:\\Windows\\Temp\\current_date.txt\"",
+                "rtags": [
+                    "att&ck-technique:T1551.004"
+                ],
+                "type": "message"
+            },
+            "9": {
+                "module": "controller",
+                "request": "--shutdown",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0011",
+                    "att&ck-technique:T1219"
+                ],
+                "type": "message"
+            }
+        },
+        "signature": "3ce1cbeedb097e1a0c3b83ebdd6c955a7433cf29"
+    }
+}
