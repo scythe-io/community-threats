@@ -1,8 +1,8 @@
 # APT41 Adversary Emulation Plan
 
-Based on the Adversary Emulation Plan published here: https://security-tzu.com/2020/09/23/emulation-plan-for-apt41/
+This threat is explained further in SCYTHE's Threat Thursday blog: https://www.scythe.io/library/threatthursday-apt41
 
-#ThreatThursday blog post: https://www.scythe.io/library/threatthursday-apt41
+Based on the Adversary Emulation Plan published here: https://security-tzu.com/2020/09/23/emulation-plan-for-apt41/
 
 To emulate:
 
