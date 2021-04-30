@@ -1,0 +1,12 @@
+This threat is explained further in SCYTHE's Threat Thursday blog: https://www.scythe.io/library/threatthursday-honeybee
+
+To emulate:
+
+	1. Download and import the threat in JSON format to your SCYTHE instance
+	2. Download the Virtual File System (VFS) files under HoneyBee/VFS_files
+	3. Upload the VFS files to your SCYTHE VFS in the following location: VFS:/shared/honeybee
+	4. Go to the Threat Catalog and select the "Honeybee"
+        5. Click "Create Campaign from Threat" 
+	6. Name the campaign.
+	7. Change the IP address in Paramaters to your SCYTHE Instance IP address. 
+	8. Start the campaign.

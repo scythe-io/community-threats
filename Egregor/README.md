@@ -8,6 +8,8 @@ To emulate:
 3. Upload the VFS files to your SCYTHE VFS in the following location: VFS:/shared/egregor
 4. Go to the Threat Catalog and select "Egregor"
 5. Click "Create Campaign from Threat"
-6. Add Execution Guardrails under "Restrict Campaign"
-7. Launch the Campaign
-8. Execute via Rundll32.exe
+6. Name the Campaign
+7. Parameters: Replace unicorn.scythedemo.com with your SCYTHE instance IP address or FQDN.
+8. Add Execution Guardrails under "Restrict Campaign"
+9. Launch the Campaign
+10. Execute via Rundll32.exe
