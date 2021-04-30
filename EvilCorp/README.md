@@ -1,4 +1,3 @@
-
 This threat is explained further in SCYTHE's Threat Thursday blog: https://www.scythe.io/library/threatthursday-evil-corp
 
 To Emulate:
@@ -8,5 +7,4 @@ To Emulate:
 3. Click "Create Campaign from Threat"
 4. Name the Campaign
 5. Parameters: Replace --cp 35.229.19.7:443 with your SCYTHE instance IP address or FQDN.
-4. Launch the Campaign
-
+6. Launch the Campaign
